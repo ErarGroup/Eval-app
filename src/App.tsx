@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend } from 'recharts';
 import { Link } from 'react-router-dom';
 import './index.css';
@@ -150,8 +150,6 @@ export default function App() {
   const [allTeamTargets, setAllTeamTargets] = useState<any[]>([]); 
   const [roster, setRoster] = useState<any[]>([]);
   
-  // Final Review Modal State
-  const [showModal, setShowModal] = useState(false);
   const [finalClosingThoughts, setFinalClosingThoughts] = useState('');
 
   useEffect(() => {
