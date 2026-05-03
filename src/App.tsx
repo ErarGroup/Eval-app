@@ -713,11 +713,15 @@ export default function App() {
          ))}
       </div>
 
-      {/* DOS Director Access Button */}
-      <div className="print-hide" style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem', marginBottom: '3rem' }}>
-        <Link to="/director" className="rating-btn" style={{ padding: '0.6rem 2.5rem', textDecoration: 'none', opacity: 0.6, fontSize: '0.85rem', letterSpacing: '0.1em' }}>
-          DOS
-        </Link>
+      {/* Footer */}
+      <div className="print-hide" style={{ textAlign: 'center', marginTop: '3rem', marginBottom: '3rem', padding: '1.5rem', borderTop: '1px solid var(--border-color)', color: 'var(--text-color)', opacity: 0.5, fontSize: '0.8rem', lineHeight: 2 }}>
+        <p>© {new Date().getFullYear()} Deltona Youth Soccer Club. All rights reserved.</p>
+        <p><a href="mailto:erargroup@gmail.com" style={{ color: 'inherit', textDecoration: 'underline' }}>erargroup@gmail.com</a></p>
+        <p style={{ marginTop: '0.5rem' }}>
+          <Link to="/director" style={{ color: 'inherit', textDecoration: 'none', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
+            DOS
+          </Link>
+        </p>
       </div>
     </>
   );
