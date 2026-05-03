@@ -714,14 +714,8 @@ export default function App() {
       </div>
 
       {/* Footer */}
-      <div className="print-hide" style={{ textAlign: 'center', marginTop: '3rem', marginBottom: '3rem', padding: '1.5rem', borderTop: '1px solid var(--border-color)', color: 'var(--text-color)', opacity: 0.5, fontSize: '0.8rem', lineHeight: 2 }}>
-        <p>© {new Date().getFullYear()} Deltona Youth Soccer Club. All rights reserved.</p>
-        <p><a href="mailto:erargroup@gmail.com" style={{ color: 'inherit', textDecoration: 'underline' }}>erargroup@gmail.com</a></p>
-        <p style={{ marginTop: '0.5rem' }}>
-          <Link to="/director" style={{ color: 'inherit', textDecoration: 'none', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
-            DOS
-          </Link>
-        </p>
+      <div className="print-hide" style={{ textAlign: 'center', marginTop: '3rem', marginBottom: '3rem', padding: '1.5rem', borderTop: '1px solid var(--border-color)', color: 'var(--text-color)', opacity: 0.5, fontSize: '0.8rem' }}>
+        <p>© {new Date().getFullYear()} Erar Group LLC. All rights reserved. &nbsp;<a href="mailto:erargroup@gmail.com" style={{ color: 'inherit', textDecoration: 'underline' }}>erargroup@gmail.com</a>, &nbsp;<Link to="/director" style={{ color: 'inherit', textDecoration: 'none', letterSpacing: '0.1em' }}>DOS</Link></p>
       </div>
     </>
   );
