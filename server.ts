@@ -136,6 +136,16 @@ app.get('/api/evaluations', async (req, res) => {
   }
 });
 
+app.get('/api/evaluations/:id', async (req, res) => {
+  try {
+    const evaluation = await prisma.evaluation.findUnique({ where: { id: parseInt(req.params.id) } });
+    if (!evaluation) return res.status(404).json({ error: 'Not found' });
+    res.json(evaluation);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch evaluation' });
+  }
+});
+
 app.get('/api/targets', async (req, res) => {
   try {
     let target = await prisma.clubTarget.findUnique({ where: { id: 1 } });

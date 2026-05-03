@@ -242,6 +242,7 @@ export default function Director() {
                   <th style={{ padding: '0.75rem' }}>Physical</th>
                   <th style={{ padding: '0.75rem' }}>Technical</th>
                   <th style={{ padding: '0.75rem' }}>Tactical</th>
+                  <th style={{ padding: '0.75rem' }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -254,6 +255,11 @@ export default function Director() {
                     <td style={{ padding: '0.75rem', color: ev.physicalAvg >= targets.physicalAvg ? 'var(--score-4)' : 'var(--score-2)' }}>{ev.physicalAvg.toFixed(1)}</td>
                     <td style={{ padding: '0.75rem', color: ev.technicalAvg >= targets.technicalAvg ? 'var(--score-4)' : 'var(--score-2)' }}>{ev.technicalAvg.toFixed(1)}</td>
                     <td style={{ padding: '0.75rem', color: ev.tacticalAvg >= targets.tacticalAvg ? 'var(--score-4)' : 'var(--score-2)' }}>{ev.tacticalAvg.toFixed(1)}</td>
+                    <td style={{ padding: '0.75rem' }}>
+                      <Link to={`/print/${ev.id}`} className="rating-btn active-4" style={{ padding: '0.25rem 0.75rem', fontSize: '0.85rem', textDecoration: 'none' }}>
+                        Print
+                      </Link>
+                    </td>
                   </tr>
                 ))}
               </tbody>

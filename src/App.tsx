@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend } from 'recharts';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './index.css';
 
 const PILLARS = {
@@ -133,6 +133,7 @@ const PRESET_VIDEOS = {
 };
 
 export default function App() {
+  const { id } = useParams();
   const [playerInfo, setPlayerInfo] = useState({
     program: [] as string[], name: '', age: '', team: '', date: new Date().toISOString().split('T')[0], coach: '', emails: [] as string[]
   });
@@ -172,7 +173,27 @@ export default function App() {
       .then(res => res.json())
       .then(data => { if(data) setAllEvals(data); })
       .catch(console.error);
-  }, []);
+
+    if (id) {
+      fetch(`/api/evaluations/${id}`)
+        .then(res => res.json())
+        .then(ev => {
+          if (!ev || ev.error) return;
+          setPlayerInfo({
+            program: [], name: ev.playerName, age: ev.age, team: ev.team, date: ev.date, coach: ev.coach, emails: []
+          });
+          if (ev.detailedScores) setScores(JSON.parse(ev.detailedScores));
+          if (ev.comments) {
+            const parsedComments = JSON.parse(ev.comments);
+            setFinalClosingThoughts(parsedComments.finalCoachAssessment || '');
+            delete parsedComments.finalCoachAssessment;
+            setComments(parsedComments);
+          }
+          setTimeout(() => { window.print(); }, 1500);
+        })
+        .catch(console.error);
+    }
+  }, [id]);
 
   const handleScore = (item: string, score: number) => setScores(prev => ({ ...prev, [item]: score }));
 
