@@ -591,7 +591,7 @@ export default function App() {
                  </ResponsiveContainer>
               </div>
               <div style={{ display: 'flex', flex: 1, minWidth: '200px', justifyContent: 'center', alignItems: 'center', padding: '1rem' }}>
-                 <img src="/logo.png" alt="DYSC Logo" style={{ maxWidth: '100%', maxHeight: '200px', objectFit: 'contain' }} />
+                 <img src="/logo.jpg" alt="DYSC Logo" style={{ maxWidth: '100%', maxHeight: '200px', objectFit: 'contain' }} />
               </div>
             </div>
           </div>
