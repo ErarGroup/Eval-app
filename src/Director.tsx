@@ -25,17 +25,17 @@ export default function Director() {
   useEffect(() => {
     if (!auth) return; // Don't fetch unless logged in
 
-    fetch('http://localhost:3001/api/roster')
+    fetch('/api/roster')
       .then(res => res.json())
       .then(data => { if(data) setRoster(data); })
       .catch(console.error);
 
-    fetch('http://localhost:3001/api/evaluations')
+    fetch('/api/evaluations')
       .then(res => res.json())
       .then(data => setEvaluations(data))
       .catch(console.error);
 
-    fetch('http://localhost:3001/api/targets')
+    fetch('/api/targets')
       .then(res => res.json())
       .then(data => {
         if(data) setTargets({
@@ -47,7 +47,7 @@ export default function Director() {
       })
       .catch(console.error);
 
-    fetch('http://localhost:3001/api/team-targets')
+    fetch('/api/team-targets')
       .then(res => res.json())
       .then(data => { if(data) setAllTeamTargets(data); })
       .catch(console.error);
@@ -107,7 +107,7 @@ export default function Director() {
   const saveTargets = async () => {
     setSaving(true);
     try {
-      await fetch('http://localhost:3001/api/targets', {
+      await fetch('/api/targets', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(targets)
@@ -127,7 +127,7 @@ export default function Director() {
     }
     setSavingTeam(true);
     try {
-      const res = await fetch('http://localhost:3001/api/team-targets', {
+      const res = await fetch('/api/team-targets', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ teamName, ...teamTargets })

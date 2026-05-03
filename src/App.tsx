@@ -155,22 +155,22 @@ export default function App() {
   const [finalClosingThoughts, setFinalClosingThoughts] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/roster')
+    fetch('/api/roster')
       .then(res => res.json())
       .then(data => { if(data) setRoster(data); })
       .catch(console.error);
 
-    fetch('http://localhost:3001/api/targets')
+    fetch('/api/targets')
       .then(res => res.json())
       .then(data => { if(data) setTargets(data); })
       .catch(console.error);
 
-    fetch('http://localhost:3001/api/team-targets')
+    fetch('/api/team-targets')
       .then(res => res.json())
       .then(data => { if(data) setAllTeamTargets(data); })
       .catch(console.error);
 
-    fetch('http://localhost:3001/api/evaluations')
+    fetch('/api/evaluations')
       .then(res => res.json())
       .then(data => { if(data) setAllEvals(data); })
       .catch(console.error);
@@ -277,7 +277,7 @@ export default function App() {
     };
     
     try {
-      const response = await fetch('http://localhost:3001/api/evaluations', {
+      const response = await fetch('/api/evaluations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

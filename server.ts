@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import cors from 'cors';
 import { PrismaClient } from '@prisma/client';
 import xlsx from 'xlsx';
@@ -185,7 +186,13 @@ app.post('/api/team-targets', async (req, res) => {
   }
 });
 
-const PORT = 3001;
+// Serve the React Frontend dynamically
+app.use(express.static(path.join(process.cwd(), 'dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
+});
+
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Server API listening on http://localhost:${PORT}`);
+  console.log(`Server API listening on port ${PORT}`);
 });
