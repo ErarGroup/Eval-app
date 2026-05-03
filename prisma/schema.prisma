@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Evaluation {
+  id              Int      @id @default(autoincrement())
+  playerName      String
+  age             String
+  team            String
+  date            String
+  coach           String
+
+  mindsetAvg      Float
+  physicalAvg     Float
+  technicalAvg    Float
+  tacticalAvg     Float
+  
+  detailedScores  String
+  comments        String
+
+  createdAt       DateTime @default(now())
+}
+
+model ClubTarget {
+  id              Int      @id @default(1)
+  mindsetAvg      Float    @default(3.0)
+  physicalAvg     Float    @default(3.0)
+  technicalAvg    Float    @default(3.0)
+  tacticalAvg     Float    @default(3.0)
+}
+
+model TeamTarget {
+  id              Int      @id @default(autoincrement())
+  teamName        String   @unique
+  mindsetAvg      Float    @default(3.0)
+  physicalAvg     Float    @default(3.0)
+  technicalAvg    Float    @default(3.0)
+  tacticalAvg     Float    @default(3.0)
+}
