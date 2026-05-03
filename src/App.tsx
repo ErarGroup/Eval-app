@@ -576,8 +576,8 @@ export default function App() {
               </tbody>
             </table>
 
-            <div style={{ display: 'flex', width: '100%', flexWrap: 'wrap', alignItems: 'center', gap: '2rem', marginTop: '2rem' }}>
-              <div className="chart-wrapper" style={{ flex: 1, minWidth: '300px' }}>
+            <div style={{ display: 'flex', width: '100%', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '2rem', marginTop: '2rem' }}>
+              <div className="chart-wrapper" style={{ flex: 1, minWidth: '300px', maxWidth: '600px' }}>
                  <ResponsiveContainer width="100%" height={350}>
                    <RadarChart cx="50%" cy="50%" outerRadius="70%" data={chartData}>
                      <PolarGrid />
@@ -589,9 +589,6 @@ export default function App() {
                      <Legend wrapperStyle={{ paddingTop: '20px' }}/>
                    </RadarChart>
                  </ResponsiveContainer>
-              </div>
-              <div style={{ display: 'flex', flex: 1, minWidth: '200px', justifyContent: 'center', alignItems: 'center', padding: '1rem' }}>
-                 <img src="/logo.jpg" alt="DYSC Logo" style={{ maxWidth: '100%', maxHeight: '200px', objectFit: 'contain' }} />
               </div>
             </div>
           </div>
