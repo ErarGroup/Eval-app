@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import cors from 'cors';
 import { PrismaClient } from '@prisma/client';
 import xlsx from 'xlsx';
@@ -187,9 +188,14 @@ app.post('/api/team-targets', async (req, res) => {
 });
 
 // Serve the React Frontend dynamically
-app.use(express.static(path.join(process.cwd(), 'dist')));
-app.use((req, res) => {
-  res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const distPath = path.join(__dirname, 'dist');
+
+app.use(express.static(distPath));
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api')) return next();
+  res.sendFile(path.join(distPath, 'index.html'));
 });
 
 const PORT = process.env.PORT || 3001;
