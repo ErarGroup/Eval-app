@@ -179,17 +179,26 @@ export default function App() {
         .then(res => res.json())
         .then(ev => {
           if (!ev || ev.error) return;
-          setPlayerInfo({
-            program: [], name: ev.playerName, age: ev.age, team: ev.team, date: ev.date, coach: ev.coach, emails: []
+          fetch('/api/roster').then(r => r.json()).then(rosterData => {
+            const match = rosterData.find((r: any) => r.name === ev.playerName && r.team === ev.team);
+            setPlayerInfo({
+              program: match ? [match.program] : ['Unknown'], 
+              name: ev.playerName, 
+              age: ev.age, 
+              team: ev.team, 
+              date: ev.date, 
+              coach: ev.coach, 
+              emails: match && match.emails ? match.emails : []
+            });
+            if (ev.detailedScores) setScores(JSON.parse(ev.detailedScores));
+            if (ev.comments) {
+              const parsedComments = JSON.parse(ev.comments);
+              setFinalClosingThoughts(parsedComments.finalCoachAssessment || '');
+              delete parsedComments.finalCoachAssessment;
+              setComments(parsedComments);
+            }
+            setTimeout(() => { window.print(); }, 1500);
           });
-          if (ev.detailedScores) setScores(JSON.parse(ev.detailedScores));
-          if (ev.comments) {
-            const parsedComments = JSON.parse(ev.comments);
-            setFinalClosingThoughts(parsedComments.finalCoachAssessment || '');
-            delete parsedComments.finalCoachAssessment;
-            setComments(parsedComments);
-          }
-          setTimeout(() => { window.print(); }, 1500);
         })
         .catch(console.error);
     }
@@ -454,9 +463,6 @@ export default function App() {
         <header className="header print-header" style={{ position: 'relative' }}>
           <h1>DYSC <span className="gradient-text print-black">Evaluation Pro</span></h1>
           <p>Dynamic Player Assessment & Insights Platform</p>
-          <Link to="/director" className="rating-btn print-hide" style={{ position: 'absolute', top: 0, right: 0, padding: '0.5rem 1rem', textDecoration: 'none' }}>
-             Director Dashboard → 
-          </Link>
         </header>
 
         <div className="card animate-slide-in" style={{ animationDelay: '0s' }}>
@@ -499,7 +505,7 @@ export default function App() {
                     setPlayerInfo({...playerInfo, team: e.target.value, name: '', age: ''}); 
                  }}>
                    <option value="">-- Select Team --</option>
-                   {availableTeams.map(team => <option key={team} value={team}>{team}</option>)}
+                   {Array.from(new Set([...availableTeams, playerInfo.team])).filter(Boolean).map(team => <option key={team} value={team}>{team}</option>)}
                  </select>
                ) : (
                  <input type="text" value={playerInfo.team} onChange={e => setPlayerInfo({...playerInfo, team: e.target.value})} placeholder="e.g. DYSC Gold" />
@@ -511,7 +517,7 @@ export default function App() {
                {availableAges.length > 0 ? (
                  <select value={playerInfo.age} onChange={e => setPlayerInfo({...playerInfo, age: e.target.value})}>
                    <option value="">-- Select Division --</option>
-                   {availableAges.map(age => <option key={age} value={age}>{age}</option>)}
+                   {Array.from(new Set([...availableAges, playerInfo.age])).filter(Boolean).map(age => <option key={age} value={age}>{age}</option>)}
                  </select>
                ) : (
                  <input type="text" value={playerInfo.age} onChange={e => setPlayerInfo({...playerInfo, age: e.target.value})} placeholder="e.g. U12" />
@@ -531,7 +537,7 @@ export default function App() {
                    }
                  }} style={{ borderColor: !playerInfo.name ? 'rgba(239, 68, 68, 0.4)' : '' }}>
                    <option value="">-- Select Player --</option>
-                   {availableNames.map(name => <option key={name} value={name}>{name}</option>)}
+                   {Array.from(new Set([...availableNames, playerInfo.name])).filter(Boolean).map(name => <option key={name} value={name}>{name}</option>)}
                    <option value="___OTHER___">+ Add New Player...</option>
                  </select>
                )}
@@ -705,6 +711,13 @@ export default function App() {
                <span>{def}</span>
             </div>
          ))}
+      </div>
+
+      {/* DOS Director Access Button */}
+      <div className="print-hide" style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem', marginBottom: '3rem' }}>
+        <Link to="/director" className="rating-btn" style={{ padding: '0.6rem 2.5rem', textDecoration: 'none', opacity: 0.6, fontSize: '0.85rem', letterSpacing: '0.1em' }}>
+          DOS
+        </Link>
       </div>
     </>
   );
