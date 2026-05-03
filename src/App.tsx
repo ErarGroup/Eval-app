@@ -287,8 +287,7 @@ export default function App() {
       console.error('Network issue: Backend not detected.', e);
     }
 
-    // Close Modal and trigger native PDF render sequence
-    setShowModal(false);
+    // Trigger native PDF render sequence
     setTimeout(() => { window.print(); }, 500);
   };
 
