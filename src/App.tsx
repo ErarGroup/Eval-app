@@ -153,42 +153,110 @@ const PRESET_STRENGTHS: Record<string, { advanced: string[], intermediate: strin
   }
 };
 
-const PRESET_GROWTH = {
-  mindset: [
-    "-- Select an Area for Growth --",
-    "Needs to stay calm under pressure",
-    "Must improve reaction to mistakes",
-    "Needs to improve communication with teammates",
-    "Needs to stay engaged when off the ball",
-    "Needs to improve listening during instructions"
-  ],
-  physical: [
-    "-- Select an Area for Growth --",
-    "Improve agility drills and foot speed",
-    "Requires better reaction time to loose balls",
-    "Needs extra fitness conditioning",
-    "Needs to work on endurance during longer drills",
-    "Needs to improve overall strength",
-    "Needs to improve recovery between sprints"
-  ],
-  technical: [
-    "-- Select an Area for Growth --",
-    "Improve dribbling past defenders at pace",
-    "Work on shielding the ball better",
-    "Needs to practice weaker foot passing",
-    "Needs to improve crossing technique",
-    "Needs to work on receiving under pressure",
-    "Needs to improve long-range passing accuracy"
-  ],
-  tactical: [
-    "-- Select an Area for Growth --",
-    "Needs to drop back faster on defense",
-    "Work on positioning without the ball",
-    "Needs better anticipation of opponent movements",
-    "Needs to improve marking responsibilities",
-    "Needs to recognize when to switch the play",
-    "Needs to improve timing of runs behind defenders"
-  ]
+const PRESET_GROWTH: Record<string, { advanced: string[], intermediate: string[], basic: string[] }> = {
+  mindset: {
+    advanced: [
+      "Needs to stay calm under pressure",
+      "Must improve reaction to mistakes",
+      "Needs to improve communication with teammates",
+      "Needs to stay engaged when off the ball",
+      "Needs to improve listening during instructions"
+    ],
+    intermediate: [
+      "Needs to build consistency in focus",
+      "Hesitates after errors; needs quicker reset",
+      "Needs to speak up more during play",
+      "Needs reminders to stay mentally engaged",
+      "Needs to follow instructions with fewer repetitions",
+      "Needs to develop stronger competitive mentality"
+    ],
+    basic: [
+      "Easily distracted; needs help staying focused",
+      "Struggles to recover emotionally after mistakes",
+      "Needs encouragement to participate verbally",
+      "Needs guidance to stay involved in activities",
+      "Needs support understanding instructions",
+      "Needs confidence-building to stay motivated"
+    ]
+  },
+  physical: {
+    advanced: [
+      "Improve agility drills and foot speed",
+      "Requires better reaction time to loose balls",
+      "Needs extra fitness conditioning",
+      "Needs to work on endurance during longer drills",
+      "Needs to improve overall strength",
+      "Needs to improve recovery between sprints"
+    ],
+    intermediate: [
+      "Needs to improve change-of-direction quickness",
+      "Needs quicker reactions in game moments",
+      "Needs to build stamina for full-session intensity",
+      "Needs to improve core strength",
+      "Needs better consistency in sprint mechanics",
+      "Needs to improve flexibility and mobility"
+    ],
+    basic: [
+      "Needs to improve basic coordination",
+      "Needs to build general endurance",
+      "Needs help developing balance and stability",
+      "Needs to improve running form",
+      "Needs to build foundational strength",
+      "Needs to improve overall physical confidence"
+    ]
+  },
+  technical: {
+    advanced: [
+      "Improve dribbling past defenders at pace",
+      "Work on shielding the ball better",
+      "Needs to practice weaker-foot passing",
+      "Needs to improve crossing technique",
+      "Needs to work on receiving under pressure",
+      "Needs to improve long-range passing accuracy"
+    ],
+    intermediate: [
+      "Needs to improve dribbling control in traffic",
+      "Needs to strengthen first touch under light pressure",
+      "Needs to improve passing consistency",
+      "Needs to develop better shooting mechanics",
+      "Needs to improve ball protection",
+      "Needs to improve accuracy with both feet"
+    ],
+    basic: [
+      "Needs to improve basic ball control",
+      "Needs help with simple passing and receiving",
+      "Needs to build comfort dribbling in open space",
+      "Needs to improve coordination with the ball",
+      "Needs to learn proper striking technique",
+      "Needs to improve first touch fundamentals"
+    ]
+  },
+  tactical: {
+    advanced: [
+      "Needs to drop back faster on defense",
+      "Work on positioning without the ball",
+      "Needs better anticipation of opponent movements",
+      "Needs to improve marking responsibilities",
+      "Needs to recognize when to switch the play",
+      "Needs to improve timing of runs behind defenders"
+    ],
+    intermediate: [
+      "Needs to understand spacing more consistently",
+      "Needs to improve decision-making under pressure",
+      "Needs to react quicker in transition moments",
+      "Needs to improve defensive positioning",
+      "Needs to recognize simple tactical cues",
+      "Needs to improve awareness of teammates' movement"
+    ],
+    basic: [
+      "Needs help understanding basic positions",
+      "Needs reminders to stay in shape/formations",
+      "Needs to follow the play with more awareness",
+      "Needs to learn simple defensive responsibilities",
+      "Needs to understand when to move into space",
+      "Needs to improve basic game understanding"
+    ]
+  }
 };
 
 const PRESET_VIDEOS = {
@@ -521,7 +589,16 @@ export default function App() {
              onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], growth: e.target.value } }))}
              style={{ borderColor: comments[objKey as keyof typeof comments].growth.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
           >
-            {PRESET_GROWTH[objKey as keyof typeof PRESET_GROWTH].map(opt => <option key={opt}>{opt}</option>)}
+            <option value="-- Select an Area for Growth --">-- Select an Area for Growth --</option>
+            <optgroup label="🏆 Advanced (Competitive Level)">
+              {PRESET_GROWTH[objKey].advanced.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </optgroup>
+            <optgroup label="📊 Intermediate (Developmental Level)">
+              {PRESET_GROWTH[objKey].intermediate.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </optgroup>
+            <optgroup label="🌱 Basic (Recreational / Beginner Level)">
+              {PRESET_GROWTH[objKey].basic.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </optgroup>
           </select>
         </div>
         <div className="form-group">
