@@ -691,11 +691,7 @@ export default function App() {
         </div>
       </div>
       
-      <div className="container">
-        <header className="header print-header" style={{ position: 'relative' }}>
-          <h1>DYSC <span className="gradient-text print-black">Evaluation Pro</span></h1>
-          <p>Dynamic Player Assessment & Insights Platform</p>
-        </header>
+      <div className="container" style={{ pageBreakBefore: 'always', breakBefore: 'page' }}>
 
         <div className="card animate-slide-in" style={{ animationDelay: '0s' }}>
           <h2 className="section-title">Player Information</h2>
@@ -853,9 +849,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className="print-page-break print-only"></div>
-
-        <div className="print-grid">
+        <div className="print-grid" style={{ pageBreakBefore: 'always', breakBefore: 'page' }}>
            {renderSection("1. Mindset & Behavior", "mindset", PILLARS.mindset, 0.2)}
            {renderSection("2. Physical Conditioning", "physical", PILLARS.physical, 0.3)}
            {renderSection("3. Technical Skills", "technical", PILLARS.technical, 0.4)}
