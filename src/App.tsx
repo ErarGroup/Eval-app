@@ -43,44 +43,114 @@ const GLOSSARY: Record<string, string> = {
   "Offensive Counter": "The speed and decisiveness in transitioning immediately from defense to attack upon winning possession of the ball."
 };
 
-const PRESET_STRENGTHS = {
-  mindset: [
-    "-- Select a Strength --",
-    "Excellent focus and coachability",
-    "Consistently displays a positive attitude",
-    "Shows great determination in 50/50 challenges",
-    "Very resilient after setbacks",
-    "Shows strong work ethic every session",
-    "Encourages teammates and lifts team spirit",
-    "Great team leader on the field"
-  ],
-  physical: [
-    "-- Select a Strength --",
-    "Incredible stamina throughout the match",
-    "Great speed and explosiveness",
-    "Strong body presence on the field",
-    "Excellent coordination and balance",
-    "Quick acceleration in short distances",
-    "Shows great athletic potential"
-  ],
-  technical: [
-    "-- Select a Strength --",
-    "Fantastic ball control in tight spaces",
-    "Excellent first touch when receiving",
-    "Great shooting accuracy",
-    "Consistent and accurate passing range",
-    "Strong ball-striking mechanics",
-    "Shows creativity with the ball"
-  ],
-  tactical: [
-    "-- Select a Strength --",
-    "Excellent spatial awareness",
-    "Smart decision making in the final third",
-    "Great offensive overlapping runs",
-    "Quick transition from attack to defense",
-    "Reads the game well under pressure",
-    "Very effective in small-sided tactical moments"
-  ]
+const PRESET_STRENGTHS: Record<string, { advanced: string[], intermediate: string[], basic: string[] }> = {
+  mindset: {
+    advanced: [
+      "Excellent focus and coachability",
+      "Consistently displays a positive attitude",
+      "Shows great determination in 50/50 challenges",
+      "Very resilient after setbacks",
+      "Shows strong work ethic every session",
+      "Encourages teammates and lifts team spirit",
+      "Great team leader on the field"
+    ],
+    intermediate: [
+      "Stays focused during most of the session",
+      "Responds well to coaching and correction",
+      "Shows improving resilience after mistakes",
+      "Demonstrates growing confidence in games",
+      "Works hard and shows consistent effort",
+      "Supports teammates and communicates more frequently",
+      "Shows willingness to take on challenges"
+    ],
+    basic: [
+      "Shows enthusiasm and willingness to participate",
+      "Follows instructions with guidance",
+      "Maintains a positive attitude throughout practice",
+      "Shows effort in drills and small-sided games",
+      "Demonstrates early signs of confidence",
+      "Shows interest in learning and improving",
+      "Displays good sportsmanship"
+    ]
+  },
+  physical: {
+    advanced: [
+      "Incredible stamina throughout the match",
+      "Great speed and explosiveness",
+      "Strong body presence on the field",
+      "Excellent coordination and balance",
+      "Quick acceleration in short distances",
+      "Shows great athletic potential"
+    ],
+    intermediate: [
+      "Good overall speed and mobility",
+      "Improving stamina during longer drills",
+      "Shows developing strength in challenges",
+      "Demonstrates better balance and coordination",
+      "Reacts quicker in open-play situations",
+      "Shows improving athletic form and mechanics"
+    ],
+    basic: [
+      "Shows effort in running and physical drills",
+      "Demonstrates basic coordination and balance",
+      "Moves confidently in open space",
+      "Shows improving endurance with repetition",
+      "Participates actively in physical activities",
+      "Demonstrates early athletic potential"
+    ]
+  },
+  technical: {
+    advanced: [
+      "Fantastic ball control in tight spaces",
+      "Excellent first touch when receiving",
+      "Great shooting accuracy",
+      "Consistent and accurate passing range",
+      "Strong ball-striking mechanics",
+      "Shows creativity with the ball"
+    ],
+    intermediate: [
+      "Good ball control in open space",
+      "Improving first touch under light pressure",
+      "Accurate short-range passing",
+      "Shows developing shooting technique",
+      "Demonstrates improving dribbling ability",
+      "Shows willingness to use both feet"
+    ],
+    basic: [
+      "Demonstrates basic ball-handling skills",
+      "Can pass and receive with guidance",
+      "Shows improving dribbling in open space",
+      "Developing comfort with ball striking",
+      "Shows progress in simple technical drills",
+      "Demonstrates early coordination with the ball"
+    ]
+  },
+  tactical: {
+    advanced: [
+      "Excellent spatial awareness",
+      "Smart decision-making in the final third",
+      "Great offensive overlapping runs",
+      "Quick transition from attack to defense",
+      "Reads the game well under pressure",
+      "Very effective in small-sided tactical moments"
+    ],
+    intermediate: [
+      "Understands basic positioning",
+      "Shows improving awareness of space",
+      "Makes better decisions with more repetition",
+      "Transitions quicker between phases of play",
+      "Shows developing understanding of team shape",
+      "Recognizes simple tactical cues"
+    ],
+    basic: [
+      "Understands simple positional roles",
+      "Follows the flow of play with guidance",
+      "Shows improving awareness of teammates",
+      "Demonstrates early understanding of spacing",
+      "Responds to basic tactical instructions",
+      "Shows progress in small-sided games"
+    ]
+  }
 };
 
 const PRESET_GROWTH = {
@@ -432,7 +502,16 @@ export default function App() {
              onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], strength: e.target.value } }))}
              style={{ borderColor: comments[objKey as keyof typeof comments].strength.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
           >
-            {PRESET_STRENGTHS[objKey as keyof typeof PRESET_STRENGTHS].map(opt => <option key={opt}>{opt}</option>)}
+            <option value="-- Select a Strength --">-- Select a Strength --</option>
+            <optgroup label="🏆 Advanced (Competitive Level)">
+              {PRESET_STRENGTHS[objKey].advanced.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </optgroup>
+            <optgroup label="📊 Intermediate (Developmental Level)">
+              {PRESET_STRENGTHS[objKey].intermediate.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </optgroup>
+            <optgroup label="🌱 Basic (Recreational / Beginner Level)">
+              {PRESET_STRENGTHS[objKey].basic.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </optgroup>
           </select>
         </div>
         <div className="form-group">
