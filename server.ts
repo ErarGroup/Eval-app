@@ -96,7 +96,10 @@ app.get('/api/roster', (req, res) => {
 
 app.post('/api/evaluations', async (req, res) => {
   try {
-    const evaluation = await prisma.evaluation.create({ data: req.body });
+    const { playerName, age, team, date, coach, mindsetAvg, physicalAvg, technicalAvg, tacticalAvg, detailedScores, comments } = req.body;
+    const evaluation = await prisma.evaluation.create({
+      data: { playerName, age, team, date, coach, mindsetAvg, physicalAvg, technicalAvg, tacticalAvg, detailedScores, comments }
+    });
     
     // Shoot off ethereal email!
     if(transporter) {
