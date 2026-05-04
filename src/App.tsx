@@ -43,92 +43,144 @@ const GLOSSARY: Record<string, string> = {
   "Offensive Counter": "The speed and decisiveness in transitioning immediately from defense to attack upon winning possession of the ball."
 };
 
-const PRESET_COMMENTS = {
+const PRESET_STRENGTHS = {
   mindset: [
-    "-- Select a Coach Comment --", 
-    "Excellent focus and coachability", 
-    "Needs to stay calm under pressure", 
-    "Great team leader on the field", 
-    "Must improve reaction to mistakes",
+    "-- Select a Strength --",
+    "Excellent focus and coachability",
     "Consistently displays a positive attitude",
     "Shows great determination in 50/50 challenges",
-    "Needs to improve communication with teammates"
+    "Very resilient after setbacks",
+    "Shows strong work ethic every session",
+    "Encourages teammates and lifts team spirit",
+    "Great team leader on the field"
   ],
   physical: [
-    "-- Select a Coach Comment --", 
-    "Incredible stamina throughout the match", 
-    "Needs extra fitness conditioning", 
-    "Great speed and explosiveness", 
-    "Improve agility drills and foot speed",
+    "-- Select a Strength --",
+    "Incredible stamina throughout the match",
+    "Great speed and explosiveness",
     "Strong body presence on the field",
-    "Requires better reaction time to loose balls",
-    "Excellent coordination and balance"
+    "Excellent coordination and balance",
+    "Quick acceleration in short distances",
+    "Shows great athletic potential"
   ],
   technical: [
-    "-- Select a Coach Comment --", 
-    "Fantastic ball control in tight spaces", 
-    "Needs to practice weaker foot passing", 
-    "Great shooting accuracy", 
-    "Work on shielding the ball better",
+    "-- Select a Strength --",
+    "Fantastic ball control in tight spaces",
     "Excellent first touch when receiving",
-    "Improve dribbling past defenders at pace",
-    "Consistent and accurate passing range"
+    "Great shooting accuracy",
+    "Consistent and accurate passing range",
+    "Strong ball-striking mechanics",
+    "Shows creativity with the ball"
   ],
   tactical: [
-    "-- Select a Coach Comment --", 
-    "Excellent spatial awareness", 
-    "Needs to drop back faster on defense", 
-    "Great offensive overlapping runs", 
-    "Work on positioning without the ball",
+    "-- Select a Strength --",
+    "Excellent spatial awareness",
     "Smart decision making in the final third",
+    "Great offensive overlapping runs",
+    "Quick transition from attack to defense",
+    "Reads the game well under pressure",
+    "Very effective in small-sided tactical moments"
+  ]
+};
+
+const PRESET_GROWTH = {
+  mindset: [
+    "-- Select an Area for Growth --",
+    "Needs to stay calm under pressure",
+    "Must improve reaction to mistakes",
+    "Needs to improve communication with teammates",
+    "Needs to stay engaged when off the ball",
+    "Needs to improve listening during instructions"
+  ],
+  physical: [
+    "-- Select an Area for Growth --",
+    "Improve agility drills and foot speed",
+    "Requires better reaction time to loose balls",
+    "Needs extra fitness conditioning",
+    "Needs to work on endurance during longer drills",
+    "Needs to improve overall strength",
+    "Needs to improve recovery between sprints"
+  ],
+  technical: [
+    "-- Select an Area for Growth --",
+    "Improve dribbling past defenders at pace",
+    "Work on shielding the ball better",
+    "Needs to practice weaker foot passing",
+    "Needs to improve crossing technique",
+    "Needs to work on receiving under pressure",
+    "Needs to improve long-range passing accuracy"
+  ],
+  tactical: [
+    "-- Select an Area for Growth --",
+    "Needs to drop back faster on defense",
+    "Work on positioning without the ball",
     "Needs better anticipation of opponent movements",
-    "Quick transition from attack to defense"
+    "Needs to improve marking responsibilities",
+    "Needs to recognize when to switch the play",
+    "Needs to improve timing of runs behind defenders"
   ]
 };
 
 const PRESET_VIDEOS = {
   mindset: [
-    "-- Recommend Training Video --", 
-    "https://youtube.com/watch?v=mindset1 (Focus Drill)", 
-    "https://youtube.com/watch?v=mindset2 (Handling Pressure)",
-    "https://youtube.com/watch?v=mindset3 (Leadership on the Pitch)",
-    "https://youtube.com/watch?v=mindset4 (Overcoming Mistakes)",
-    "https://youtube.com/watch?v=mindset5 (Aggressive Mentality)",
-    "https://youtube.com/watch?v=mindset6 (Communication Exercises)",
-    "https://youtube.com/watch?v=mindset7 (Building Confidence)"
+    "-- Work on your own --",
+    "Leadership on the Pitch",
+    "Building Confidence",
+    "Communication Exercises",
+    "Focus Drill",
+    "Staying Engaged Off the Ball",
+    "Pre-Game Mental Preparation",
+    "Handling Pressure",
+    "Overcoming Mistakes",
+    "Aggressive Mentality",
+    "Emotional Control During Games",
+    "Growth Mindset for Young Athletes",
+    "Staying Positive After Errors"
   ],
   physical: [
-    "-- Work on your own --", 
-    "Agility Ladder", 
-    "Stamina Drills",
+    "-- Work on your own --",
     "Sprint Mechanics",
-    "Core Strength for Soccer",
-    "Reaction Speed Training",
     "Plyometric Explosiveness",
-    "Balance & Coordination"
+    "Balance & Coordination",
+    "Acceleration Drills",
+    "Footwork Patterns for Quickness",
+    "Speed Endurance Training",
+    "Agility Ladder",
+    "Reaction Speed Training",
+    "Stamina Drills",
+    "Core Strength for Soccer",
+    "Youth Strength Basics (Bodyweight)",
+    "Flexibility & Mobility for Soccer"
   ],
   technical: [
-    "-- Work on your own --", 
-    "Wall Passing", 
+    "-- Work on your own --",
     "Ball Mastery",
-    "Shooting Technique",
-    "Shielding the ball better",
-    "Weak Foot Development",
     "First Touch Control",
+    "Shooting Technique",
+    "Wall Passing",
+    "Turning Moves (Cruyff, Inside/Outside Cut)",
+    "Juggling Progressions",
     "1v1 Dribbling Moves",
-    "Long range pass",
-    "Shielding the Ball"
+    "Shielding the Ball Better",
+    "Weak Foot Development",
+    "Receiving Under Pressure",
+    "Crossing Technique",
+    "Long-Range Passing"
   ],
   tactical: [
-    "-- Work on your own --", 
-    "Scanning the field",
-    "Defensive Positioning", 
-    "Attacking Runs",
+    "-- Work on your own --",
     "Spatial Awareness",
-    "Off-the-ball Movement",
+    "Scanning the Field",
+    "Attacking Runs",
+    "Off-the-Ball Movement",
     "Counter Attacking Speed",
+    "Playing Out of the Back",
+    "Defensive Positioning",
     "Pressing Triggers",
-    "Playing out of the Back"
+    "Understanding Width & Depth",
+    "Transition Moments",
+    "When to Switch the Play",
+    "Reading Opponent Body Language"
   ]
 };
 
@@ -140,10 +192,10 @@ export default function App() {
 
   const [scores, setScores] = useState<Record<string, number>>({});
   const [comments, setComments] = useState({
-    mindset: { text: '-- Select a Coach Comment --', video: '-- Recommend Training Video --' },
-    physical: { text: '-- Select a Coach Comment --', video: '-- Work on your own --' },
-    technical: { text: '-- Select a Coach Comment --', video: '-- Work on your own --' },
-    tactical: { text: '-- Select a Coach Comment --', video: '-- Work on your own --' }
+    mindset:  { strength: '-- Select a Strength --',  growth: '-- Select an Area for Growth --', video: '-- Work on your own --' },
+    physical: { strength: '-- Select a Strength --',  growth: '-- Select an Area for Growth --', video: '-- Work on your own --' },
+    technical:{ strength: '-- Select a Strength --',  growth: '-- Select an Area for Growth --', video: '-- Work on your own --' },
+    tactical: { strength: '-- Select a Strength --',  growth: '-- Select an Area for Growth --', video: '-- Work on your own --' }
   });
 
   const [targets, setTargets] = useState<any>({ mindsetAvg: 3.0, physicalAvg: 3.0, technicalAvg: 3.0, tacticalAvg: 3.0 });
@@ -264,11 +316,15 @@ export default function App() {
 
     for (const pillar of ['mindset', 'physical', 'technical', 'tactical']) {
        const obj = comments[pillar as keyof typeof comments];
-       if (obj.text.includes('-- Select')) {
-         alert(`Missing Coach Comment in your ${pillar.toUpperCase()} section.`);
+       if (obj.strength.includes('-- Select a Strength')) {
+         alert(`Missing Strength in your ${pillar.toUpperCase()} section.`);
          return;
        }
-       if (pillar !== 'mindset' && obj.video.includes('-- Work on your own --')) {
+       if (obj.growth.includes('-- Select an Area')) {
+         alert(`Missing Area for Growth in your ${pillar.toUpperCase()} section.`);
+         return;
+       }
+       if (obj.video.includes('-- Work on your own --')) {
          alert(`Missing "Work on your own" selection in your ${pillar.toUpperCase()} section.`);
          return;
        }
@@ -370,27 +426,35 @@ export default function App() {
       
       <div className="comments-section print-hide" style={{ marginTop: '1.5rem', display: 'flex', gap: '1rem', flexDirection: 'column' }}>
         <div className="form-group">
-          <label>Coach's Comment: <span style={{color: 'red'}}>*</span></label>
+          <label>⭐ Strengths: <span style={{color: 'red'}}>*</span></label>
           <select 
-             value={comments[objKey as keyof typeof comments].text}
-             onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], text: e.target.value } }))}
-             style={{ borderColor: comments[objKey as keyof typeof comments].text.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
+             value={comments[objKey as keyof typeof comments].strength}
+             onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], strength: e.target.value } }))}
+             style={{ borderColor: comments[objKey as keyof typeof comments].strength.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
           >
-            {PRESET_COMMENTS[objKey as keyof typeof PRESET_COMMENTS].map(opt => <option key={opt}>{opt}</option>)}
+            {PRESET_STRENGTHS[objKey as keyof typeof PRESET_STRENGTHS].map(opt => <option key={opt}>{opt}</option>)}
           </select>
         </div>
-        {objKey !== 'mindset' && (
-          <div className="form-group">
-            <label>Work on your own: <span style={{color: 'red'}}>*</span></label>
-            <select 
-               value={comments[objKey as keyof typeof comments].video}
-               onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], video: e.target.value } }))}
-               style={{ borderColor: comments[objKey as keyof typeof comments].video.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
-            >
-              {PRESET_VIDEOS[objKey as keyof typeof PRESET_VIDEOS].map(opt => <option key={opt}>{opt}</option>)}
-            </select>
-          </div>
-        )}
+        <div className="form-group">
+          <label>📈 Areas for Growth: <span style={{color: 'red'}}>*</span></label>
+          <select 
+             value={comments[objKey as keyof typeof comments].growth}
+             onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], growth: e.target.value } }))}
+             style={{ borderColor: comments[objKey as keyof typeof comments].growth.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
+          >
+            {PRESET_GROWTH[objKey as keyof typeof PRESET_GROWTH].map(opt => <option key={opt}>{opt}</option>)}
+          </select>
+        </div>
+        <div className="form-group">
+          <label>🏃 Work on your own: <span style={{color: 'red'}}>*</span></label>
+          <select 
+             value={comments[objKey as keyof typeof comments].video}
+             onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], video: e.target.value } }))}
+             style={{ borderColor: comments[objKey as keyof typeof comments].video.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
+          >
+            {PRESET_VIDEOS[objKey as keyof typeof PRESET_VIDEOS].map(opt => <option key={opt}>{opt}</option>)}
+          </select>
+        </div>
       </div>
     </div>
   );
@@ -663,7 +727,7 @@ export default function App() {
                <polyline points="6 9 6 2 18 2 18 9"></polyline>
                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
                <rect x="6" y="14" width="12" height="8"></rect>
-             </svg>
+            </svg>
              Review & Finalize Submission
            </button>
         </div>
@@ -672,14 +736,13 @@ export default function App() {
         <div className="print-only feedback-print-summary">
           <h2>Coach Feedback & Training Resources</h2>
           {Object.entries(comments).map(([pillar, data]) => {
-            if (data.text.includes('-- Select')) return null;
+            if (data.strength.includes('-- Select')) return null;
             return (
               <div className="feedback-row" key={pillar}>
                 <b style={{textTransform: 'capitalize', fontSize: '1.1rem'}}>{pillar} Pillar:</b>
-                <p><strong>Coach Note:</strong> {data.text}</p>
-                {pillar !== 'mindset' && (
-                  <p><strong>Work on your own:</strong> {data.video !== '-- Work on your own --' ? data.video : 'No assignment.'}</p>
-                )}
+                <p><strong>⭐ Strength:</strong> {data.strength}</p>
+                <p><strong>📈 Area for Growth:</strong> {data.growth !== '-- Select an Area for Growth --' ? data.growth : 'Not selected.'}</p>
+                <p><strong>🏃 Work on your own:</strong> {data.video !== '-- Work on your own --' ? data.video : 'No assignment.'}</p>
               </div>
             )
           })}
