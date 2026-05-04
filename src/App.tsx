@@ -259,67 +259,63 @@ const PRESET_GROWTH: Record<string, { advanced: string[], intermediate: string[]
   }
 };
 
-const PRESET_VIDEOS = {
-  mindset: [
-    "-- Work on your own --",
-    "Leadership on the Pitch",
-    "Building Confidence",
-    "Communication Exercises",
-    "Focus Drill",
-    "Staying Engaged Off the Ball",
-    "Pre-Game Mental Preparation",
-    "Handling Pressure",
-    "Overcoming Mistakes",
-    "Aggressive Mentality",
-    "Emotional Control During Games",
-    "Growth Mindset for Young Athletes",
-    "Staying Positive After Errors"
-  ],
-  physical: [
-    "-- Work on your own --",
-    "Sprint Mechanics",
-    "Plyometric Explosiveness",
-    "Balance & Coordination",
-    "Acceleration Drills",
-    "Footwork Patterns for Quickness",
-    "Speed Endurance Training",
-    "Agility Ladder",
-    "Reaction Speed Training",
-    "Stamina Drills",
-    "Core Strength for Soccer",
-    "Youth Strength Basics (Bodyweight)",
-    "Flexibility & Mobility for Soccer"
-  ],
-  technical: [
-    "-- Work on your own --",
-    "Ball Mastery",
-    "First Touch Control",
-    "Shooting Technique",
-    "Wall Passing",
-    "Turning Moves (Cruyff, Inside/Outside Cut)",
-    "Juggling Progressions",
-    "1v1 Dribbling Moves",
-    "Shielding the Ball Better",
-    "Weak Foot Development",
-    "Receiving Under Pressure",
-    "Crossing Technique",
-    "Long-Range Passing"
-  ],
-  tactical: [
-    "-- Work on your own --",
-    "Spatial Awareness",
-    "Scanning the Field",
-    "Attacking Runs",
-    "Off-the-Ball Movement",
-    "Counter Attacking Speed",
-    "Playing Out of the Back",
-    "Defensive Positioning",
-    "Pressing Triggers",
-    "Understanding Width & Depth",
-    "Transition Moments",
-    "When to Switch the Play",
-    "Reading Opponent Body Language"
-  ]
+const PRESET_VIDEOS: Record<string, { advanced: { strength: string[], growth: string[] }, intermediate: { strength: string[], growth: string[] }, basic: { strength: string[], growth: string[] } }> = {
+  mindset: {
+    advanced: {
+      strength: ["Leadership on the Pitch","Building Confidence","Communication Exercises","Focus Drill","Staying Engaged Off the Ball","Pre-Game Mental Preparation"],
+      growth:   ["Handling Pressure","Overcoming Mistakes","Aggressive Mentality","Emotional Control During Games","Growth Mindset for Young Athletes","Staying Positive After Errors"]
+    },
+    intermediate: {
+      strength: ["Confidence-building routines","Positive self-talk habits","Basic communication exercises","Staying focused during drills","Mental reset after mistakes","Encouraging teammates"],
+      growth:   ["Managing frustration","Staying engaged when off the ball","Learning to communicate consistently","Improving attention during instructions","Building competitive mentality","Recovering quickly after errors"]
+    },
+    basic: {
+      strength: ["Simple focus exercises","Encouraging participation","Building comfort in group settings","Following instructions with support","Positive attitude reinforcement","Basic teamwork habits"],
+      growth:   ["Staying focused for short periods","Learning to handle mistakes calmly","Building confidence in new situations","Understanding simple instructions","Staying involved in activities","Developing emotional control"]
+    }
+  },
+  physical: {
+    advanced: {
+      strength: ["Sprint Mechanics","Plyometric Explosiveness","Balance & Coordination","Acceleration Drills","Footwork Patterns for Quickness","Speed Endurance Training"],
+      growth:   ["Agility Ladder","Reaction Speed Training","Stamina Drills","Core Strength for Soccer","Youth Strength Basics (Bodyweight)","Flexibility & Mobility for Soccer"]
+    },
+    intermediate: {
+      strength: ["Basic sprint form","Coordination and balance drills","Light plyometrics","Short-distance acceleration","Simple footwork patterns","Intro to speed endurance"],
+      growth:   ["Agility cone patterns","Reaction ball drills","Jog-to-sprint stamina sets","Core stability exercises","Bodyweight strength routines","Stretching and mobility basics"]
+    },
+    basic: {
+      strength: ["Basic running form","Simple balance exercises","Light coordination games","Intro to footwork patterns","Short movement activities","Beginner endurance play"],
+      growth:   ["Basic agility movements","Simple reaction games","Building stamina gradually","Foundational strength (bodyweight)","Basic flexibility routines","Learning proper warm-up habits"]
+    }
+  },
+  technical: {
+    advanced: {
+      strength: ["Ball Mastery","First Touch Control","Shooting Technique","Wall Passing","Turning Moves (Cruyff, Inside/Outside Cut)","Juggling Progressions"],
+      growth:   ["1v1 Dribbling Moves","Shielding the Ball Better","Weak Foot Development","Receiving Under Pressure","Crossing Technique","Long-Range Passing"]
+    },
+    intermediate: {
+      strength: ["Basic ball mastery","First touch in open space","Short-range passing","Simple turning moves","Controlled shooting technique","Juggling basics"],
+      growth:   ["Dribbling with more control","Ball protection fundamentals","Weak-foot passing basics","Receiving with light pressure","Improving crossing form","Medium-range passing accuracy"]
+    },
+    basic: {
+      strength: ["Simple ball touches","Basic dribbling in open space","Passing and receiving with guidance","Basic shooting form","Simple turns","Intro to juggling"],
+      growth:   ["Improving ball control","Learning to pass accurately","Receiving the ball cleanly","Dribbling with confidence","Basic ball-striking technique","Simple directional control"]
+    }
+  },
+  tactical: {
+    advanced: {
+      strength: ["Spatial Awareness","Scanning the Field","Attacking Runs","Off-the-Ball Movement","Counter Attacking Speed","Playing Out of the Back"],
+      growth:   ["Defensive Positioning","Pressing Triggers","Understanding Width & Depth","Transition Moments","When to Switch the Play","Reading Opponent Body Language"]
+    },
+    intermediate: {
+      strength: ["Basic scanning habits","Simple attacking runs","Understanding spacing","Transition awareness","Off-ball support movements","Playing simple combinations"],
+      growth:   ["Defensive shape basics","Anticipating simple cues","Understanding width and depth","Faster reaction in transitions","Recognizing passing options","Timing basic runs"]
+    },
+    basic: {
+      strength: ["Following the play","Staying in basic positions","Simple movement into space","Understanding teammates' roles","Basic transition habits","Simple passing options"],
+      growth:   ["Learning positions","Staying in formation","Understanding where to move","Basic defensive responsibilities","Recognizing open space","Following simple tactical cues"]
+    }
+  }
 };
 
 export default function App() {
@@ -608,7 +604,25 @@ export default function App() {
              onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], video: e.target.value } }))}
              style={{ borderColor: comments[objKey as keyof typeof comments].video.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
           >
-            {PRESET_VIDEOS[objKey as keyof typeof PRESET_VIDEOS].map(opt => <option key={opt}>{opt}</option>)}
+            <option value="-- Work on your own --">-- Work on your own --</option>
+            <optgroup label="🏆 Advanced — ⭐ Strength-Reinforcing">
+              {PRESET_VIDEOS[objKey].advanced.strength.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </optgroup>
+            <optgroup label="🏆 Advanced — 📈 Growth-Focused">
+              {PRESET_VIDEOS[objKey].advanced.growth.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </optgroup>
+            <optgroup label="📊 Intermediate — ⭐ Strength-Reinforcing">
+              {PRESET_VIDEOS[objKey].intermediate.strength.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </optgroup>
+            <optgroup label="📊 Intermediate — 📈 Growth-Focused">
+              {PRESET_VIDEOS[objKey].intermediate.growth.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </optgroup>
+            <optgroup label="🌱 Basic — ⭐ Strength-Reinforcing">
+              {PRESET_VIDEOS[objKey].basic.strength.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </optgroup>
+            <optgroup label="🌱 Basic — 📈 Growth-Focused">
+              {PRESET_VIDEOS[objKey].basic.growth.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </optgroup>
           </select>
         </div>
       </div>
