@@ -501,14 +501,17 @@ export default function App() {
         body: JSON.stringify(payload)
       });
       if (response.ok) {
-        alert('Evaluation formally logged! System verification Email dispatched to dos@deltonasoccer.com.');
+        alert('Evaluation saved! Preparing print...');
+        // Only print AFTER confirmed database save
+        setTimeout(() => { window.print(); }, 600);
+      } else {
+        const err = await response.json().catch(() => ({}));
+        alert(`Save failed: ${err.error || response.statusText}. Please try again.`);
       }
     } catch(e) {
       console.error('Network issue: Backend not detected.', e);
+      alert('Could not reach the server. Check your connection and try again.');
     }
-
-    // Trigger native PDF render sequence
-    setTimeout(() => { window.print(); }, 500);
   };
 
   const toggleProgram = (prog: string) => {
