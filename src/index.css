@@ -396,17 +396,16 @@ input:focus, select:focus, textarea:focus {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-  
+
   .container { max-width: 100%; padding: 0; margin: 0; }
-  .modal-overlay { display: none !important; } /* Hide modal during print */
+  .modal-overlay { display: none !important; }
   .print-hide { display: none !important; }
   .tooltip-container { display: none !important; }
   .print-only { display: block !important; }
-  
-  /* Render HTML exact Replica Cover Sheet into Print Mode */
+
+  /* Cover page — shrink to content, no forced full-page height */
   .raw-cover-page {
     width: 100%;
-    height: 100vh;
     overflow: hidden;
     page-break-after: always;
     break-after: page;
@@ -414,76 +413,76 @@ input:focus, select:focus, textarea:focus {
     padding: 0.5in;
     box-sizing: border-box;
   }
-  
+
+  /* Remove manual page-break divs from creating empty pages */
   .print-page-break {
-    page-break-after: always;
-    break-after: page;
-    display: block;
-    height: 1px;
-    clear: both;
+    display: none !important;
   }
-  
-  /* Surfacing Feedback Blocks in Print Layer */
+
+  /* Feedback summary block */
   .feedback-print-summary {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     padding: 1rem;
     border: 2px solid black;
     border-radius: 8px;
-    page-break-inside: avoid;
     break-inside: avoid;
+    page-break-inside: avoid;
   }
-  
+
   .feedback-print-summary h2 {
     border-bottom: 2px solid black;
     padding-bottom: 0.5rem;
   }
-  
+
   .feedback-row {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px dotted #ccc;
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 
-  /* Hard page breaks for Glossary Page */
+  /* Glossary — only show if content present, no forced blank page */
   .glossary-page {
-    page-break-before: always;
-    break-before: page;
-    padding: 2rem;
-    font-size: 0.85rem;
+    padding: 1.5rem;
+    font-size: 0.8rem;
     line-height: 1.4;
     display: block !important;
-  }
-  
-  .glossary-item {
-    margin-bottom: 0.75rem;
-    border-bottom: 1px dotted #ccc;
-    padding-bottom: 0.25rem;
-  }
-  
-  .glossary-item b {
-    display: inline-block;
-    width: 210px;
-    vertical-align: top;
-  }
-  
-  .glossary-item span {
-    display: inline-block;
-    width: calc(100% - 220px);
+    break-before: page;
+    page-break-before: always;
   }
 
-  .print-header { margin-bottom: 1rem !important; margin-top: 1rem !important; display: none !important; }
-  
+  .glossary-item {
+    margin-bottom: 0.5rem;
+    border-bottom: 1px dotted #ccc;
+    padding-bottom: 0.2rem;
+    break-inside: avoid;
+  }
+
+  .glossary-item b {
+    display: inline-block;
+    width: 180px;
+    vertical-align: top;
+  }
+
+  .glossary-item span {
+    display: inline-block;
+    width: calc(100% - 190px);
+  }
+
+  .print-header { display: none !important; }
+
   .print-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
   }
-  
+
   .card {
     box-shadow: none !important;
     border: 1px solid #aaa !important;
     margin-bottom: 0.5rem !important;
-    padding: 1rem !important;
+    padding: 0.75rem !important;
     break-inside: avoid;
     page-break-inside: avoid;
   }
@@ -494,10 +493,9 @@ input:focus, select:focus, textarea:focus {
     font-size: 1.1rem;
   }
 
-  .evaluations { display: flex; flex-direction: column; gap: 0.1rem; }
-  .evaluation-row { padding: 0.1rem 0; border-bottom: 1px dashed #eee; }
+  .evaluations { display: flex; flex-direction: column; gap: 0.05rem; }
+  .evaluation-row { padding: 0.1rem 0; border-bottom: 1px dashed #eee; break-inside: avoid; }
 
-  /* Collapse interaction buttons in print */
   .rating-btn { display: none !important; }
   .rating-badge {
     display: inline-block !important;
@@ -509,35 +507,37 @@ input:focus, select:focus, textarea:focus {
   .summary-card { background: white !important; color: black !important; }
   .summary-card .section-title { color: black; border-bottom: 2px solid #ccc; }
   .summary-card .section-title::before { background: black; }
-  
+
   .analysis-table { border: 1px solid #ccc; background: white; }
   .analysis-table th { background: #f1f5f9 !important; color: black !important; border-bottom: 2px solid #aaa; padding: 0.5rem; }
   .analysis-table td { color: black !important; border-bottom: 1px solid #ccc; padding: 0.5rem; }
-  
+
   .print-black { color: black !important; -webkit-text-fill-color: black !important; }
 
   .chart-wrapper {
     background: transparent !important;
     border: 1px solid #ccc;
-    width: 600px !important;
-    height: 350px !important;
+    width: 100% !important;
+    max-width: 500px !important;
+    height: 300px !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     margin: 1rem auto !important;
+    break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
-  .recharts-responsive-container { width: 600px !important; height: 350px !important; }
+  .recharts-responsive-container { width: 100% !important; height: 300px !important; }
 
   .header h1 .gradient-text { background: none; -webkit-text-fill-color: black; color: black; }
   .header p { color: #555; }
-  
+
   input, select, textarea {
     border: 1px solid #aaa !important;
     background: transparent !important;
     color: black !important;
     padding: 0.25rem 0.5rem !important;
   }
-  
-  @page { margin: 0.4in; }
+
+  @page { margin: 0.4in; size: auto; }
 }
