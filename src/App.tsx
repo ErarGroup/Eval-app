@@ -653,9 +653,7 @@ export default function App() {
     <>
       <div className="print-only raw-cover-page">
         <div style={{ textAlign: 'center', marginTop: '1rem', marginBottom: '2rem' }}>
-          <h1 style={{ fontSize: '3.5rem', fontWeight: 800, margin: 0, padding: 0 }}>DYSC</h1>
-          <h2 style={{ fontSize: '2rem', color: '#555', margin: 0, padding: 0 }}>Player Evaluation Rubric</h2>
-          <p style={{ marginTop: '1rem', fontStyle: 'italic', color: '#666' }}>Official Assessment Standards Document</p>
+          <h1 style={{ fontSize: '2.5rem', fontWeight: 800, margin: 0, padding: 0 }}>DYSC Player Evaluation</h1>
         </div>
         
         <div style={{ width: '100%', maxWidth: '800px', margin: '0 auto', textAlign: 'left' }}>
