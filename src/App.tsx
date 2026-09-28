@@ -645,7 +645,6 @@ export default function App() {
     .filter(r => playerInfo.program.length > 0 ? playerInfo.program.includes(r.program) : true)
     .map(r => r.age)
   )].filter(Boolean).sort();
-  )].filter(Boolean).sort();
   const availableNames = [...new Set(roster
     .filter(r => playerInfo.program.length > 0 ? playerInfo.program.includes(r.program) : true)
     .filter(r => playerInfo.team ? r.team === playerInfo.team : true)
