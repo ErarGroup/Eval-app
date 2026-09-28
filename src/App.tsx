@@ -644,7 +644,21 @@ export default function App() {
   const availableAges = [...new Set(roster
     .filter(r => playerInfo.program.length > 0 ? playerInfo.program.includes(r.program) : true)
     .map(r => r.age)
-  )].filter(Boolean).sort();
+  )].filter(Boolean).sort((a, b) => {
+    // Pin the priority division to the top based on selected program
+    const selectedProgram = playerInfo.program[0] || '';
+    const pinned = selectedProgram === 'Competitive' ? 'U9'
+                 : selectedProgram === 'Developmental' ? 'U8'
+                 : null;
+    if (pinned) {
+      if (a === pinned) return -1;
+      if (b === pinned) return 1;
+    }
+    // Sort the rest numerically (U9->9, U10->10, Dev HS->999)
+    const numA = parseInt(a.replace(/\D/g, '')) || 999;
+    const numB = parseInt(b.replace(/\D/g, '')) || 999;
+    return numA - numB;
+  });
   const availableNames = [...new Set(roster
     .filter(r => playerInfo.program.length > 0 ? playerInfo.program.includes(r.program) : true)
     .filter(r => playerInfo.team ? r.team === playerInfo.team : true)
