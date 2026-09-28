@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend } from 'recharts';
 import { Link, useParams } from 'react-router-dom';
 import './index.css';
@@ -563,67 +563,67 @@ export default function App() {
       
       <div className="comments-section print-hide" style={{ marginTop: '1.5rem', display: 'flex', gap: '1rem', flexDirection: 'column' }}>
         <div className="form-group">
-          <label>⭐ Strengths: <span style={{color: 'red'}}>*</span></label>
+          <label>â­ Strengths: <span style={{color: 'red'}}>*</span></label>
           <select 
              value={comments[objKey as keyof typeof comments].strength}
              onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], strength: e.target.value } }))}
              style={{ borderColor: comments[objKey as keyof typeof comments].strength.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
           >
             <option value="-- Select a Strength --">-- Select a Strength --</option>
-            <optgroup label="🏆 Advanced (Competitive Level)">
+            <optgroup label="ðŸ† Advanced (Competitive Level)">
               {PRESET_STRENGTHS[objKey].advanced.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="📊 Intermediate (Developmental Level)">
+            <optgroup label="ðŸ“Š Intermediate (Developmental Level)">
               {PRESET_STRENGTHS[objKey].intermediate.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="🌱 Basic (Recreational / Beginner Level)">
+            <optgroup label="ðŸŒ± Basic (Recreational / Beginner Level)">
               {PRESET_STRENGTHS[objKey].basic.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
           </select>
         </div>
         <div className="form-group">
-          <label>📈 Areas for Growth: <span style={{color: 'red'}}>*</span></label>
+          <label>ðŸ“ˆ Areas for Growth: <span style={{color: 'red'}}>*</span></label>
           <select 
              value={comments[objKey as keyof typeof comments].growth}
              onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], growth: e.target.value } }))}
              style={{ borderColor: comments[objKey as keyof typeof comments].growth.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
           >
             <option value="-- Select an Area for Growth --">-- Select an Area for Growth --</option>
-            <optgroup label="🏆 Advanced (Competitive Level)">
+            <optgroup label="ðŸ† Advanced (Competitive Level)">
               {PRESET_GROWTH[objKey].advanced.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="📊 Intermediate (Developmental Level)">
+            <optgroup label="ðŸ“Š Intermediate (Developmental Level)">
               {PRESET_GROWTH[objKey].intermediate.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="🌱 Basic (Recreational / Beginner Level)">
+            <optgroup label="ðŸŒ± Basic (Recreational / Beginner Level)">
               {PRESET_GROWTH[objKey].basic.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
           </select>
         </div>
         <div className="form-group">
-          <label>🏃 Work on your own: <span style={{color: 'red'}}>*</span></label>
+          <label>ðŸƒ Work on your own: <span style={{color: 'red'}}>*</span></label>
           <select 
              value={comments[objKey as keyof typeof comments].video}
              onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], video: e.target.value } }))}
              style={{ borderColor: comments[objKey as keyof typeof comments].video.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
           >
             <option value="-- Work on your own --">-- Work on your own --</option>
-            <optgroup label="🏆 Advanced — ⭐ Strength-Reinforcing">
+            <optgroup label="ðŸ† Advanced â€” â­ Strength-Reinforcing">
               {PRESET_VIDEOS[objKey].advanced.strength.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="🏆 Advanced — 📈 Growth-Focused">
+            <optgroup label="ðŸ† Advanced â€” ðŸ“ˆ Growth-Focused">
               {PRESET_VIDEOS[objKey].advanced.growth.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="📊 Intermediate — ⭐ Strength-Reinforcing">
+            <optgroup label="ðŸ“Š Intermediate â€” â­ Strength-Reinforcing">
               {PRESET_VIDEOS[objKey].intermediate.strength.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="📊 Intermediate — 📈 Growth-Focused">
+            <optgroup label="ðŸ“Š Intermediate â€” ðŸ“ˆ Growth-Focused">
               {PRESET_VIDEOS[objKey].intermediate.growth.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="🌱 Basic — ⭐ Strength-Reinforcing">
+            <optgroup label="ðŸŒ± Basic â€” â­ Strength-Reinforcing">
               {PRESET_VIDEOS[objKey].basic.strength.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="🌱 Basic — 📈 Growth-Focused">
+            <optgroup label="ðŸŒ± Basic â€” ðŸ“ˆ Growth-Focused">
               {PRESET_VIDEOS[objKey].basic.growth.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
           </select>
@@ -649,6 +649,7 @@ export default function App() {
   const availableNames = [...new Set(roster
     .filter(r => playerInfo.program.length > 0 ? playerInfo.program.includes(r.program) : true)
     .filter(r => playerInfo.team ? r.team === playerInfo.team : true)
+    .filter(r => playerInfo.age ? r.age === playerInfo.age : true)
     .map(r => r.name)
   )].filter(Boolean).sort();
 
@@ -746,7 +747,7 @@ export default function App() {
             <div className="form-group">
                <label>Age/Division</label>
                {availableAges.length > 0 ? (
-                 <select value={playerInfo.age} onChange={e => setPlayerInfo({...playerInfo, age: e.target.value})}>
+                 <select value={playerInfo.age} onChange={e => setPlayerInfo({...playerInfo, age: e.target.value, name: '', emails: []})}>
                    <option value="">-- Select Division --</option>
                    {Array.from(new Set([...availableAges, playerInfo.age])).filter(Boolean).map(age => <option key={age} value={age}>{age}</option>)}
                  </select>
@@ -784,9 +785,26 @@ export default function App() {
                )}
                
                {playerInfo.emails && playerInfo.emails.length > 0 && (
-                  <small style={{ color: 'var(--score-3)', marginTop: '0.25rem', display: 'block', fontWeight: 600 }}>
-                    <span role="img" aria-label="email">📧</span> Linked Emails: {playerInfo.emails.join(', ')}
-                  </small>
+                  <div style={{
+                    marginTop: '0.5rem',
+                    padding: '0.5rem 0.75rem',
+                    background: 'rgba(34, 197, 94, 0.08)',
+                    border: '1px solid rgba(34, 197, 94, 0.35)',
+                    borderRadius: '6px',
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '0.5rem'
+                  }}>
+                    <span style={{ fontSize: '1rem', marginTop: '1px' }}>📧</span>
+                    <div>
+                      <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--score-3)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.15rem' }}>
+                        Parent / Guardian Contact
+                      </div>
+                      <div style={{ fontSize: '0.85rem', color: 'var(--text-color)', fontWeight: 500, wordBreak: 'break-all' }}>
+                        {playerInfo.emails.join(' · ')}
+                      </div>
+                    </div>
+                  </div>
                )}
             </div>
             
@@ -871,7 +889,7 @@ export default function App() {
                rows={4} 
                value={finalClosingThoughts}
                onChange={(e) => setFinalClosingThoughts(e.target.value)}
-               placeholder="e.g. Julián has shown tremendous growth this quarter. His technical skills are adapting well to game scenarios..."
+               placeholder="e.g. JuliÃ¡n has shown tremendous growth this quarter. His technical skills are adapting well to game scenarios..."
                style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', resize: 'vertical' }}
              />
            </div>
@@ -905,9 +923,9 @@ export default function App() {
             return (
               <div className="feedback-row" key={pillar}>
                 <b style={{textTransform: 'capitalize', fontSize: '1.1rem'}}>{pillar} Pillar:</b>
-                <p><strong>⭐ Strength:</strong> {data.strength}</p>
-                <p><strong>📈 Area for Growth:</strong> {data.growth !== '-- Select an Area for Growth --' ? data.growth : 'Not selected.'}</p>
-                <p><strong>🏃 Work on your own:</strong> {data.video !== '-- Work on your own --' ? data.video : 'No assignment.'}</p>
+                <p><strong>â­ Strength:</strong> {data.strength}</p>
+                <p><strong>ðŸ“ˆ Area for Growth:</strong> {data.growth !== '-- Select an Area for Growth --' ? data.growth : 'Not selected.'}</p>
+                <p><strong>ðŸƒ Work on your own:</strong> {data.video !== '-- Work on your own --' ? data.video : 'No assignment.'}</p>
               </div>
             )
           })}
@@ -916,13 +934,13 @@ export default function App() {
                 <b style={{fontSize: '1.1rem'}}>Final Coach Assessment:</b>
                 <p style={{ fontStyle: 'italic', marginTop: '0.5rem' }}>"{finalClosingThoughts}"</p>
                 {playerInfo.coach && (
-                  <p style={{ fontWeight: 600, marginTop: '0.5rem', color: 'var(--primary-color)' }}>— Evaluated by: {playerInfo.coach}</p>
+                  <p style={{ fontWeight: 600, marginTop: '0.5rem', color: 'var(--primary-color)' }}>â€” Evaluated by: {playerInfo.coach}</p>
                 )}
              </div>
           )}
           {!finalClosingThoughts && playerInfo.coach && (
              <div className="feedback-row" style={{ marginTop: '1.5rem' }}>
-                <p style={{ fontWeight: 600, color: 'var(--primary-color)' }}>— Evaluated by: {playerInfo.coach}</p>
+                <p style={{ fontWeight: 600, color: 'var(--primary-color)' }}>â€” Evaluated by: {playerInfo.coach}</p>
              </div>
           )}
         </div>
@@ -943,7 +961,7 @@ export default function App() {
 
       {/* Footer */}
       <div className="print-hide" style={{ textAlign: 'center', marginTop: '3rem', marginBottom: '3rem', padding: '1.5rem', borderTop: '1px solid var(--border-color)', color: 'var(--text-color)', opacity: 0.5, fontSize: '0.8rem' }}>
-        <p>© {new Date().getFullYear()} Erar Group LLC. All rights reserved. &nbsp;<a href="mailto:erargroup@gmail.com" style={{ color: 'inherit', textDecoration: 'underline' }}>erargroup@gmail.com</a>, &nbsp;<Link to="/director" style={{ color: 'inherit', textDecoration: 'none', letterSpacing: '0.1em' }}>DOS</Link></p>
+        <p>Â© {new Date().getFullYear()} Erar Group LLC. All rights reserved. &nbsp;<a href="mailto:erargroup@gmail.com" style={{ color: 'inherit', textDecoration: 'underline' }}>erargroup@gmail.com</a>, &nbsp;<Link to="/director" style={{ color: 'inherit', textDecoration: 'none', letterSpacing: '0.1em' }}>DOS</Link></p>
       </div>
     </>
   );
