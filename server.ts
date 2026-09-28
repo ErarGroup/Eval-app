@@ -34,7 +34,7 @@ nodemailer.createTestAccount((err, account) => {
 // Global Roster Cache mapped once at backend spinup
 let cache: any[] = [];
 
-const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFaYslUjSgHJnQUgUflpMKHAzz7DQH80kk2zuVD6EBxLchHWoorYUPnpcBuwYDrg/pub?output=csv';
+const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQBxzPsCsNC5NMWFTfPOc5MXAsoXH1EjeC8nrE9uYdA8MOJLq7z8ttaOUo-O32EHg/pub?output=csv';
 
 async function syncRoster() {
   try {
@@ -45,29 +45,22 @@ async function syncRoster() {
     const rawData: any[] = xlsx.utils.sheet_to_json(sheet);
     
     const parsedRoster = rawData.map(d => {
-      const fn = (d['Player\nFirst Name'] || d['Player First Name'] || '').trim();
-      const ln = (d['Player\nLast Name'] || d['Player Last Name'] || '').trim();
-      const full = fn || ln ? `${fn} ${ln}`.trim() : '';
+      // New sheet format: Program, Division, Team, Head Coach, Player ID, Player Name, Parent Email
+      const full = String(d['Player Name'] || '').trim();
 
-      const potentialEmails = [
-        d['Contact Email'],
-        d['Guardian 1 Email Address'],
-        d['Guardian 2 Email Address'],
-        d['Guardian 2 Alternate Email'],
-        d['Email/UserID']
-      ];
-      
-      // Clean and uniquely deduplicate valid emails
+      // Parent Email may contain multiple semicolon-separated addresses
+      const rawEmails = String(d['Parent Email'] || '');
       const validEmails = [...new Set(
-        potentialEmails
-          .map(e => String(e || '').trim().toLowerCase())
-          .filter(e => e.includes('@'))
+        rawEmails
+          .split(';')
+          .map((e: string) => e.trim().toLowerCase())
+          .filter((e: string) => e.includes('@'))
       )];
 
       return {
         program: String(d['Program'] || '').trim(),
         team: String(d['Team'] || '').trim(),
-        age: String(d['Age/Division'] || '').trim(),
+        age: String(d['Division'] || '').trim(),
         name: full,
         emails: validEmails
       };
