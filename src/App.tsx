@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend } from 'recharts';
 import { Link, useParams } from 'react-router-dom';
 import './index.css';
@@ -798,7 +798,7 @@ export default function App() {
                     <span style={{ fontSize: '1rem', marginTop: '1px' }}>📧</span>
                     <div>
                       <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--score-3)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.15rem' }}>
-                        Parent / Guardian Contact
+                        Parent Email
                       </div>
                       <div style={{ fontSize: '0.85rem', color: 'var(--text-color)', fontWeight: 500, wordBreak: 'break-all' }}>
                         {playerInfo.emails.join(' · ')}
