@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend } from 'recharts';
 import { Link, useParams } from 'react-router-dom';
 import './index.css';
@@ -516,10 +516,9 @@ export default function App() {
 
   const toggleProgram = (prog: string) => {
     setPlayerInfo(prev => {
-      const exists = prev.program.includes(prog);
-      const newArr = exists ? prev.program.filter(p => p !== prog) : [...prev.program, prog];
-      // Force clearing dependent dropdowns whenever upper tree changes
-      return { ...prev, program: newArr, team: '', age: '', name: '' };
+      // Single-select: clicking the same one deselects, clicking a new one replaces
+      const newArr = prev.program.includes(prog) ? [] : [prog];
+      return { ...prev, program: newArr, age: '', team: '', name: '', emails: [] };
     });
   };
 
@@ -563,67 +562,67 @@ export default function App() {
       
       <div className="comments-section print-hide" style={{ marginTop: '1.5rem', display: 'flex', gap: '1rem', flexDirection: 'column' }}>
         <div className="form-group">
-          <label>â­ Strengths: <span style={{color: 'red'}}>*</span></label>
+          <label>Ã¢Â­Â Strengths: <span style={{color: 'red'}}>*</span></label>
           <select 
              value={comments[objKey as keyof typeof comments].strength}
              onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], strength: e.target.value } }))}
              style={{ borderColor: comments[objKey as keyof typeof comments].strength.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
           >
             <option value="-- Select a Strength --">-- Select a Strength --</option>
-            <optgroup label="ðŸ† Advanced (Competitive Level)">
+            <optgroup label="Ã°Å¸Ââ€  Advanced (Competitive Level)">
               {PRESET_STRENGTHS[objKey].advanced.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="ðŸ“Š Intermediate (Developmental Level)">
+            <optgroup label="Ã°Å¸â€œÅ  Intermediate (Developmental Level)">
               {PRESET_STRENGTHS[objKey].intermediate.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="ðŸŒ± Basic (Recreational / Beginner Level)">
+            <optgroup label="Ã°Å¸Å’Â± Basic (Recreational / Beginner Level)">
               {PRESET_STRENGTHS[objKey].basic.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
           </select>
         </div>
         <div className="form-group">
-          <label>ðŸ“ˆ Areas for Growth: <span style={{color: 'red'}}>*</span></label>
+          <label>Ã°Å¸â€œË† Areas for Growth: <span style={{color: 'red'}}>*</span></label>
           <select 
              value={comments[objKey as keyof typeof comments].growth}
              onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], growth: e.target.value } }))}
              style={{ borderColor: comments[objKey as keyof typeof comments].growth.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
           >
             <option value="-- Select an Area for Growth --">-- Select an Area for Growth --</option>
-            <optgroup label="ðŸ† Advanced (Competitive Level)">
+            <optgroup label="Ã°Å¸Ââ€  Advanced (Competitive Level)">
               {PRESET_GROWTH[objKey].advanced.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="ðŸ“Š Intermediate (Developmental Level)">
+            <optgroup label="Ã°Å¸â€œÅ  Intermediate (Developmental Level)">
               {PRESET_GROWTH[objKey].intermediate.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="ðŸŒ± Basic (Recreational / Beginner Level)">
+            <optgroup label="Ã°Å¸Å’Â± Basic (Recreational / Beginner Level)">
               {PRESET_GROWTH[objKey].basic.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
           </select>
         </div>
         <div className="form-group">
-          <label>ðŸƒ Work on your own: <span style={{color: 'red'}}>*</span></label>
+          <label>Ã°Å¸ÂÆ’ Work on your own: <span style={{color: 'red'}}>*</span></label>
           <select 
              value={comments[objKey as keyof typeof comments].video}
              onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], video: e.target.value } }))}
              style={{ borderColor: comments[objKey as keyof typeof comments].video.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
           >
             <option value="-- Work on your own --">-- Work on your own --</option>
-            <optgroup label="ðŸ† Advanced â€” â­ Strength-Reinforcing">
+            <optgroup label="Ã°Å¸Ââ€  Advanced Ã¢â‚¬â€ Ã¢Â­Â Strength-Reinforcing">
               {PRESET_VIDEOS[objKey].advanced.strength.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="ðŸ† Advanced â€” ðŸ“ˆ Growth-Focused">
+            <optgroup label="Ã°Å¸Ââ€  Advanced Ã¢â‚¬â€ Ã°Å¸â€œË† Growth-Focused">
               {PRESET_VIDEOS[objKey].advanced.growth.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="ðŸ“Š Intermediate â€” â­ Strength-Reinforcing">
+            <optgroup label="Ã°Å¸â€œÅ  Intermediate Ã¢â‚¬â€ Ã¢Â­Â Strength-Reinforcing">
               {PRESET_VIDEOS[objKey].intermediate.strength.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="ðŸ“Š Intermediate â€” ðŸ“ˆ Growth-Focused">
+            <optgroup label="Ã°Å¸â€œÅ  Intermediate Ã¢â‚¬â€ Ã°Å¸â€œË† Growth-Focused">
               {PRESET_VIDEOS[objKey].intermediate.growth.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="ðŸŒ± Basic â€” â­ Strength-Reinforcing">
+            <optgroup label="Ã°Å¸Å’Â± Basic Ã¢â‚¬â€ Ã¢Â­Â Strength-Reinforcing">
               {PRESET_VIDEOS[objKey].basic.strength.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="ðŸŒ± Basic â€” ðŸ“ˆ Growth-Focused">
+            <optgroup label="Ã°Å¸Å’Â± Basic Ã¢â‚¬â€ Ã°Å¸â€œË† Growth-Focused">
               {PRESET_VIDEOS[objKey].basic.growth.map(opt => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
           </select>
@@ -639,12 +638,13 @@ export default function App() {
     .sort();
   const availableTeams = [...new Set(roster
     .filter(r => playerInfo.program.length > 0 ? playerInfo.program.includes(r.program) : true)
+    .filter(r => playerInfo.age ? r.age === playerInfo.age : true)
     .map(r => r.team)
   )].filter(Boolean).sort();
   const availableAges = [...new Set(roster
     .filter(r => playerInfo.program.length > 0 ? playerInfo.program.includes(r.program) : true)
-    .filter(r => playerInfo.team ? r.team === playerInfo.team : true)
     .map(r => r.age)
+  )].filter(Boolean).sort();
   )].filter(Boolean).sort();
   const availableNames = [...new Set(roster
     .filter(r => playerInfo.program.length > 0 ? playerInfo.program.includes(r.program) : true)
@@ -699,6 +699,7 @@ export default function App() {
 
         <div className="card animate-slide-in" style={{ animationDelay: '0s' }}>
           <h2 className="section-title">Player Information</h2>
+          {/* STEP 1: Select a Program */}
           <div className="grid" style={{ marginBottom: '1.5rem', display: 'block' }}>
             <div className="form-group" style={{ marginBottom: '1rem' }}>
                <label>Select a Program</label>
@@ -706,15 +707,14 @@ export default function App() {
                  <div className="program-checkbox-list" style={{ alignItems: 'center' }}>
                     {availablePrograms.map(prog => (
                        <label key={prog}>
-                         <input 
-                           type="checkbox" 
+                         <input
+                           type="checkbox"
                            checked={playerInfo.program.includes(prog)}
                            onChange={() => toggleProgram(prog)}
                          />
                          {prog}
                        </label>
                     ))}
-                    
                     <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '1rem' }}>
                        <div style={{ width: '2px', height: '24px', backgroundColor: 'var(--border-color)' }}></div>
                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -728,62 +728,77 @@ export default function App() {
                )}
             </div>
           </div>
-          
           <div className="grid">
-            <div className="form-group">
-               <label>Team</label>
-               {availableTeams.length > 0 ? (
-                 <select value={playerInfo.team} onChange={e => {
-                    setPlayerInfo({...playerInfo, team: e.target.value, name: '', age: ''}); 
-                 }}>
-                   <option value="">-- Select Team --</option>
-                   {Array.from(new Set([...availableTeams, playerInfo.team])).filter(Boolean).map(team => <option key={team} value={team}>{team}</option>)}
-                 </select>
-               ) : (
-                 <input type="text" value={playerInfo.team} onChange={e => setPlayerInfo({...playerInfo, team: e.target.value})} placeholder="e.g. DYSC Gold" />
-               )}
-            </div>
-
-            <div className="form-group">
+            {/* STEP 2: Age/Division — enabled only after program selected */}
+            <div className="form-group" style={{ opacity: playerInfo.program.length === 0 ? 0.45 : 1, transition: 'opacity 0.2s' }}>
                <label>Age/Division</label>
                {availableAges.length > 0 ? (
-                 <select value={playerInfo.age} onChange={e => setPlayerInfo({...playerInfo, age: e.target.value, name: '', emails: []})}>
+                 <select
+                   value={playerInfo.age}
+                   disabled={playerInfo.program.length === 0}
+                   onChange={e => setPlayerInfo({...playerInfo, age: e.target.value, team: '', name: '', emails: []})}
+                   style={{ cursor: playerInfo.program.length === 0 ? 'not-allowed' : 'pointer' }}
+                 >
                    <option value="">-- Select Division --</option>
-                   {Array.from(new Set([...availableAges, playerInfo.age])).filter(Boolean).map(age => <option key={age} value={age}>{age}</option>)}
+                   {availableAges.map(age => <option key={age} value={age}>{age}</option>)}
                  </select>
                ) : (
-                 <input type="text" value={playerInfo.age} onChange={e => setPlayerInfo({...playerInfo, age: e.target.value})} placeholder="e.g. U12" />
+                 <input type="text" value={playerInfo.age} disabled={playerInfo.program.length === 0} onChange={e => setPlayerInfo({...playerInfo, age: e.target.value, team: '', name: '', emails: []})} placeholder="e.g. U12" />
                )}
             </div>
 
-            <div className="form-group">
+            {/* STEP 3: Team — enabled only after age selected */}
+            <div className="form-group" style={{ opacity: !playerInfo.age ? 0.45 : 1, transition: 'opacity 0.2s' }}>
+               <label>Team</label>
+               {availableTeams.length > 0 ? (
+                 <select
+                   value={playerInfo.team}
+                   disabled={!playerInfo.age}
+                   onChange={e => setPlayerInfo({...playerInfo, team: e.target.value, name: '', emails: []})}
+                   style={{ cursor: !playerInfo.age ? 'not-allowed' : 'pointer' }}
+                 >
+                   <option value="">-- Select Team --</option>
+                   {availableTeams.map(team => <option key={team} value={team}>{team}</option>)}
+                 </select>
+               ) : (
+                 <input type="text" value={playerInfo.team} disabled={!playerInfo.age} onChange={e => setPlayerInfo({...playerInfo, team: e.target.value})} placeholder="e.g. DYSC Gold" />
+               )}
+            </div>
+
+            {/* STEP 4: Player Name — enabled only after team selected */}
+            <div className="form-group" style={{ opacity: !playerInfo.team ? 0.45 : 1, transition: 'opacity 0.2s' }}>
                <label>Player Name <span style={{color: 'red'}}>*</span></label>
                {availableNames.length > 0 && (
-                 <select value={availableNames.includes(playerInfo.name) ? playerInfo.name : (playerInfo.name ? '___OTHER___' : '')} onChange={e => {
-                   const selName = e.target.value;
-                   if (selName === '___OTHER___') {
-                     setPlayerInfo({...playerInfo, name: ' ', emails: []});
-                   } else {
-                     const match = roster.find(r => r.name === selName && r.team === playerInfo.team);
-                     setPlayerInfo({...playerInfo, name: selName, emails: match && match.emails ? match.emails : []});
-                   }
-                 }} style={{ borderColor: !playerInfo.name ? 'rgba(239, 68, 68, 0.4)' : '' }}>
+                 <select
+                   value={availableNames.includes(playerInfo.name) ? playerInfo.name : (playerInfo.name ? '___OTHER___' : '')}
+                   disabled={!playerInfo.team}
+                   onChange={e => {
+                     const selName = e.target.value;
+                     if (selName === '___OTHER___') {
+                       setPlayerInfo({...playerInfo, name: ' ', emails: []});
+                     } else {
+                       const match = roster.find(r => r.name === selName && r.team === playerInfo.team);
+                       setPlayerInfo({...playerInfo, name: selName, emails: match && match.emails ? match.emails : []});
+                     }
+                   }}
+                   style={{ borderColor: !playerInfo.name ? 'rgba(239, 68, 68, 0.4)' : '', cursor: !playerInfo.team ? 'not-allowed' : 'pointer' }}
+                 >
                    <option value="">-- Select Player --</option>
                    {Array.from(new Set([...availableNames, playerInfo.name])).filter(Boolean).map(name => <option key={name} value={name}>{name}</option>)}
                    <option value="___OTHER___">+ Add New Player...</option>
                  </select>
                )}
                {(availableNames.length === 0 || (playerInfo.name !== '' && !availableNames.includes(playerInfo.name))) && (
-                 <input 
-                   type="text" 
-                   value={playerInfo.name === ' ' ? '' : playerInfo.name} 
-                   onChange={e => setPlayerInfo({...playerInfo, name: e.target.value})} 
-                   placeholder={availableNames.length > 0 ? "Type New Player Name..." : "Player Name"} 
-                   style={{ borderColor: !playerInfo.name ? 'rgba(239, 68, 68, 0.4)' : '', marginTop: availableNames.length > 0 ? '0.5rem' : '0' }} 
-                   autoFocus={availableNames.length > 0} 
+                 <input
+                   type="text"
+                   value={playerInfo.name === ' ' ? '' : playerInfo.name}
+                   onChange={e => setPlayerInfo({...playerInfo, name: e.target.value})}
+                   placeholder={availableNames.length > 0 ? "Type New Player Name..." : "Player Name"}
+                   style={{ borderColor: !playerInfo.name ? 'rgba(239, 68, 68, 0.4)' : '', marginTop: availableNames.length > 0 ? '0.5rem' : '0' }}
+                   autoFocus={availableNames.length > 0}
                  />
                )}
-               
+
                {playerInfo.emails && playerInfo.emails.length > 0 && (
                   <div style={{
                     marginTop: '0.5rem',
@@ -889,7 +904,7 @@ export default function App() {
                rows={4} 
                value={finalClosingThoughts}
                onChange={(e) => setFinalClosingThoughts(e.target.value)}
-               placeholder="e.g. JuliÃ¡n has shown tremendous growth this quarter. His technical skills are adapting well to game scenarios..."
+               placeholder="e.g. JuliÃƒÂ¡n has shown tremendous growth this quarter. His technical skills are adapting well to game scenarios..."
                style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', resize: 'vertical' }}
              />
            </div>
@@ -923,9 +938,9 @@ export default function App() {
             return (
               <div className="feedback-row" key={pillar}>
                 <b style={{textTransform: 'capitalize', fontSize: '1.1rem'}}>{pillar} Pillar:</b>
-                <p><strong>â­ Strength:</strong> {data.strength}</p>
-                <p><strong>ðŸ“ˆ Area for Growth:</strong> {data.growth !== '-- Select an Area for Growth --' ? data.growth : 'Not selected.'}</p>
-                <p><strong>ðŸƒ Work on your own:</strong> {data.video !== '-- Work on your own --' ? data.video : 'No assignment.'}</p>
+                <p><strong>Ã¢Â­Â Strength:</strong> {data.strength}</p>
+                <p><strong>Ã°Å¸â€œË† Area for Growth:</strong> {data.growth !== '-- Select an Area for Growth --' ? data.growth : 'Not selected.'}</p>
+                <p><strong>Ã°Å¸ÂÆ’ Work on your own:</strong> {data.video !== '-- Work on your own --' ? data.video : 'No assignment.'}</p>
               </div>
             )
           })}
@@ -934,13 +949,13 @@ export default function App() {
                 <b style={{fontSize: '1.1rem'}}>Final Coach Assessment:</b>
                 <p style={{ fontStyle: 'italic', marginTop: '0.5rem' }}>"{finalClosingThoughts}"</p>
                 {playerInfo.coach && (
-                  <p style={{ fontWeight: 600, marginTop: '0.5rem', color: 'var(--primary-color)' }}>â€” Evaluated by: {playerInfo.coach}</p>
+                  <p style={{ fontWeight: 600, marginTop: '0.5rem', color: 'var(--primary-color)' }}>Ã¢â‚¬â€ Evaluated by: {playerInfo.coach}</p>
                 )}
              </div>
           )}
           {!finalClosingThoughts && playerInfo.coach && (
              <div className="feedback-row" style={{ marginTop: '1.5rem' }}>
-                <p style={{ fontWeight: 600, color: 'var(--primary-color)' }}>â€” Evaluated by: {playerInfo.coach}</p>
+                <p style={{ fontWeight: 600, color: 'var(--primary-color)' }}>Ã¢â‚¬â€ Evaluated by: {playerInfo.coach}</p>
              </div>
           )}
         </div>
@@ -961,7 +976,7 @@ export default function App() {
 
       {/* Footer */}
       <div className="print-hide" style={{ textAlign: 'center', marginTop: '3rem', marginBottom: '3rem', padding: '1.5rem', borderTop: '1px solid var(--border-color)', color: 'var(--text-color)', opacity: 0.5, fontSize: '0.8rem' }}>
-        <p>Â© {new Date().getFullYear()} Erar Group LLC. All rights reserved. &nbsp;<a href="mailto:erargroup@gmail.com" style={{ color: 'inherit', textDecoration: 'underline' }}>erargroup@gmail.com</a>, &nbsp;<Link to="/director" style={{ color: 'inherit', textDecoration: 'none', letterSpacing: '0.1em' }}>DOS</Link></p>
+        <p>Ã‚Â© {new Date().getFullYear()} Erar Group LLC. All rights reserved. &nbsp;<a href="mailto:erargroup@gmail.com" style={{ color: 'inherit', textDecoration: 'underline' }}>erargroup@gmail.com</a>, &nbsp;<Link to="/director" style={{ color: 'inherit', textDecoration: 'none', letterSpacing: '0.1em' }}>DOS</Link></p>
       </div>
     </>
   );
