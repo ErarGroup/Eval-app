@@ -238,6 +238,7 @@ export default function Director() {
                   <th style={{ padding: '0.75rem' }}>Date</th>
                   <th style={{ padding: '0.75rem' }}>Player</th>
                   <th style={{ padding: '0.75rem' }}>Team</th>
+                  <th style={{ padding: '0.75rem' }}>Coach</th>
                   <th style={{ padding: '0.75rem' }}>Mindset</th>
                   <th style={{ padding: '0.75rem' }}>Physical</th>
                   <th style={{ padding: '0.75rem' }}>Technical</th>
@@ -251,6 +252,7 @@ export default function Director() {
                     <td style={{ padding: '0.75rem' }}>{ev.date}</td>
                     <td style={{ padding: '0.75rem', fontWeight: 'bold' }}>{ev.playerName}</td>
                     <td style={{ padding: '0.75rem' }}>{ev.team}</td>
+                    <td style={{ padding: '0.75rem' }}>{ev.coach || '—'}</td>
                     <td style={{ padding: '0.75rem', color: ev.mindsetAvg >= targets.mindsetAvg ? 'var(--score-4)' : 'var(--score-2)' }}>{ev.mindsetAvg.toFixed(1)}</td>
                     <td style={{ padding: '0.75rem', color: ev.physicalAvg >= targets.physicalAvg ? 'var(--score-4)' : 'var(--score-2)' }}>{ev.physicalAvg.toFixed(1)}</td>
                     <td style={{ padding: '0.75rem', color: ev.technicalAvg >= targets.technicalAvg ? 'var(--score-4)' : 'var(--score-2)' }}>{ev.technicalAvg.toFixed(1)}</td>
