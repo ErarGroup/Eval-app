@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend } from 'recharts';
 import { Link, useParams } from 'react-router-dom';
 import './index.css';
@@ -315,13 +315,13 @@ export default function App() {
              style={{ borderColor: comments[objKey as keyof typeof comments].strength.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
           >
             <option value="-- Select a Strength --">-- Select a Strength --</option>
-            <optgroup label="Ã°Å¸Ââ€  Advanced (Competitive Level)">
+            <optgroup label="Advanced (Competitive Level)">
               {activeStrengths[objKey].advanced.map((opt: string) => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="Ã°Å¸â€œÅ  Intermediate (Developmental Level)">
+            <optgroup label="Intermediate (Developmental Level)">
               {activeStrengths[objKey].intermediate.map((opt: string) => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="Ã°Å¸Å’Â± Basic (Recreational / Beginner Level)">
+            <optgroup label="Basic (Recreational / Beginner Level)">
               {activeStrengths[objKey].basic.map((opt: string) => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
           </select>
@@ -334,13 +334,13 @@ export default function App() {
              style={{ borderColor: comments[objKey as keyof typeof comments].growth.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
           >
             <option value="-- Select an Area for Growth --">-- Select an Area for Growth --</option>
-            <optgroup label="Ã°Å¸Ââ€  Advanced (Competitive Level)">
+            <optgroup label="Advanced (Competitive Level)">
               {activeGrowth[objKey].advanced.map((opt: string) => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="Ã°Å¸â€œÅ  Intermediate (Developmental Level)">
+            <optgroup label="Intermediate (Developmental Level)">
               {activeGrowth[objKey].intermediate.map((opt: string) => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="Ã°Å¸Å’Â± Basic (Recreational / Beginner Level)">
+            <optgroup label="Basic (Recreational / Beginner Level)">
               {activeGrowth[objKey].basic.map((opt: string) => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
           </select>
@@ -353,22 +353,22 @@ export default function App() {
              style={{ borderColor: comments[objKey as keyof typeof comments].video.includes('--') ? 'rgba(239, 68, 68, 0.4)' : '' }}
           >
             <option value="-- Work on your own --">-- Work on your own --</option>
-            <optgroup label="Ã°Å¸Ââ€  Advanced Ã¢â‚¬â€ Ã¢Â­Â Strength-Reinforcing">
+            <optgroup label="Advanced - Strength-Reinforcing">
               {activeVideos[objKey].advanced.strength.map((opt: string) => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="Ã°Å¸Ââ€  Advanced Ã¢â‚¬â€ Ã°Å¸â€œË† Growth-Focused">
+            <optgroup label="Advanced - Growth-Focused">
               {activeVideos[objKey].advanced.growth.map((opt: string) => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="Ã°Å¸â€œÅ  Intermediate Ã¢â‚¬â€ Ã¢Â­Â Strength-Reinforcing">
+            <optgroup label="Intermediate - Strength-Reinforcing">
               {activeVideos[objKey].intermediate.strength.map((opt: string) => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="Ã°Å¸â€œÅ  Intermediate Ã¢â‚¬â€ Ã°Å¸â€œË† Growth-Focused">
+            <optgroup label="Intermediate - Growth-Focused">
               {activeVideos[objKey].intermediate.growth.map((opt: string) => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="Ã°Å¸Å’Â± Basic Ã¢â‚¬â€ Ã¢Â­Â Strength-Reinforcing">
+            <optgroup label="Basic - Strength-Reinforcing">
               {activeVideos[objKey].basic.strength.map((opt: string) => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
-            <optgroup label="Ã°Å¸Å’Â± Basic Ã¢â‚¬â€ Ã°Å¸â€œË† Growth-Focused">
+            <optgroup label="Basic - Growth-Focused">
               {activeVideos[objKey].basic.growth.map((opt: string) => <option key={opt} value={opt}>{opt}</option>)}
             </optgroup>
           </select>
