@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { PRESET_STRENGTHS, PRESET_GROWTH, PRESET_VIDEOS } from './presets';
 
 export default function Director() {
   const [auth, setAuth] = useState(false);
@@ -21,6 +22,15 @@ export default function Director() {
   
   const [roster, setRoster] = useState<any[]>([]);
   const [allTeamTargets, setAllTeamTargets] = useState<any[]>([]);
+
+  // Preset manager state
+  const [dbPresets, setDbPresets] = useState<any>(null);
+  const [presetCategory, setPresetCategory] = useState<'strengths'|'growth'|'videos'>('strengths');
+  const [presetPillar, setPresetPillar] = useState('mindset');
+  const [presetLevel, setPresetLevel] = useState('advanced');
+  const [presetVideoType, setPresetVideoType] = useState<'strength'|'growth'>('strength');
+  const [newItemText, setNewItemText] = useState('');
+  const [savingPresets, setSavingPresets] = useState(false);
 
   useEffect(() => {
     if (!auth) return; // Don't fetch unless logged in
@@ -51,6 +61,13 @@ export default function Director() {
       .then(res => res.json())
       .then(data => { if(data) setAllTeamTargets(data); })
       .catch(console.error);
+
+    fetch('/api/presets')
+      .then(res => res.json())
+      .then(data => {
+        if (data) setDbPresets(data);
+      })
+      .catch(console.error);
   }, [auth]);
 
   // Pre-fill metrics dynamically based on the Dropdown selection
@@ -71,6 +88,69 @@ export default function Director() {
     }
   }, [teamName, allTeamTargets]);
 
+  // Preset manager helpers
+  const getCurrentList = (): string[] => {
+    if (!dbPresets) return [];
+    if (presetCategory === 'videos') {
+      return dbPresets?.videos?.[presetPillar]?.[presetLevel]?.[presetVideoType] || [];
+    }
+    return dbPresets?.[presetCategory]?.[presetPillar]?.[presetLevel] || [];
+  };
+
+  const updateCurrentList = (newList: string[]) => {
+    setDbPresets((prev: any) => {
+      const updated = JSON.parse(JSON.stringify(prev || {}));
+      if (presetCategory === 'videos') {
+        if (!updated.videos) updated.videos = {};
+        if (!updated.videos[presetPillar]) updated.videos[presetPillar] = {};
+        if (!updated.videos[presetPillar][presetLevel]) updated.videos[presetPillar][presetLevel] = {};
+        updated.videos[presetPillar][presetLevel][presetVideoType] = newList;
+      } else {
+        if (!updated[presetCategory]) updated[presetCategory] = {};
+        if (!updated[presetCategory][presetPillar]) updated[presetCategory][presetPillar] = {};
+        updated[presetCategory][presetPillar][presetLevel] = newList;
+      }
+      return updated;
+    });
+  };
+
+  const addItem = () => {
+    const trimmed = newItemText.trim();
+    if (!trimmed) return;
+    const current = getCurrentList();
+    if (current.includes(trimmed)) { alert('Item already exists.'); return; }
+    updateCurrentList([...current, trimmed]);
+    setNewItemText('');
+  };
+
+  const removeItem = (item: string) => {
+    updateCurrentList(getCurrentList().filter(i => i !== item));
+  };
+
+  const initializeFromDefaults = () => {
+    setDbPresets({
+      strengths: PRESET_STRENGTHS,
+      growth: PRESET_GROWTH,
+      videos: PRESET_VIDEOS
+    });
+  };
+
+  const savePresets = async () => {
+    if (!dbPresets) { alert('Please initialize from defaults first.'); return; }
+    setSavingPresets(true);
+    try {
+      await fetch('/api/presets', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dbPresets)
+      });
+      alert('Dropdown lists saved successfully!');
+    } catch(err) {
+      alert('Failed to save. Backend may be offline.');
+    }
+    setSavingPresets(false);
+  };
+
   if (!auth) {
     return (
       <div className="container" style={{display: 'flex', justifyContent: 'center', minHeight: '80vh', alignItems: 'center'}}>
@@ -88,7 +168,7 @@ export default function Director() {
            }}>
              Log In
            </button>
-           <Link to="/" style={{ display: 'block', marginTop: '1.5rem', color: 'var(--text-color)', opacity: 0.7, fontSize: '0.9rem' }}>← Return to Public Form</Link>
+           <Link to="/" style={{ display: 'block', marginTop: '1.5rem', color: 'var(--text-color)', opacity: 0.7, fontSize: '0.9rem' }}>Return to Public Form</Link>
          </div>
       </div>
     );
@@ -148,13 +228,15 @@ export default function Director() {
     setSavingTeam(false);
   };
 
+  const currentList = getCurrentList();
+
   return (
     <div className="container">
       <header className="header" style={{ marginBottom: '2rem' }}>
         <h1>Director <span className="gradient-text">Dashboard</span></h1>
-        <p>Global Statistics, Baselines & Past Evaluations Archive</p>
+        <p>Global Statistics, Baselines &amp; Past Evaluations Archive</p>
         <Link to="/" className="rating-btn" style={{ display: 'inline-block', marginTop: '1rem', padding: '0.5rem 1rem', textDecoration: 'none' }}>
-           ← Back to Form
+           Back to Form
         </Link>
       </header>
 
@@ -226,7 +308,103 @@ export default function Director() {
         </button>
       </div>
 
+      {/* Manage Dropdown Lists */}
       <div className="card animate-slide-in" style={{ animationDelay: '0.2s' }}>
+        <h2 className="section-title">Manage Dropdown Lists</h2>
+        <p style={{ opacity: 0.8, marginBottom: '1rem', fontSize: '0.9rem' }}>
+          Customize the Strengths, Areas for Growth, and Work on your own options shown to coaches in the evaluation form.
+        </p>
+
+        {!dbPresets ? (
+          <div style={{ textAlign: 'center', padding: '2rem' }}>
+            <p style={{ marginBottom: '1rem', opacity: 0.7 }}>No custom lists saved yet. Load the built-in defaults to start editing.</p>
+            <button className="rating-btn active-3" onClick={initializeFromDefaults}>Load Default Lists</button>
+          </div>
+        ) : (
+          <>
+            {/* Selectors row */}
+            <div className="grid" style={{ marginBottom: '1rem' }}>
+              <div className="form-group">
+                <label>Category</label>
+                <select value={presetCategory} onChange={e => setPresetCategory(e.target.value as any)}>
+                  <option value="strengths">Strengths</option>
+                  <option value="growth">Areas for Growth</option>
+                  <option value="videos">Work on your own</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Pillar</label>
+                <select value={presetPillar} onChange={e => setPresetPillar(e.target.value)}>
+                  <option value="mindset">Mindset</option>
+                  <option value="physical">Physical</option>
+                  <option value="technical">Technical</option>
+                  <option value="tactical">Tactical</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Level</label>
+                <select value={presetLevel} onChange={e => setPresetLevel(e.target.value)}>
+                  <option value="advanced">Advanced (Competitive)</option>
+                  <option value="intermediate">Intermediate (Developmental)</option>
+                  <option value="basic">Basic (Recreational)</option>
+                </select>
+              </div>
+              {presetCategory === 'videos' && (
+                <div className="form-group">
+                  <label>Type</label>
+                  <select value={presetVideoType} onChange={e => setPresetVideoType(e.target.value as any)}>
+                    <option value="strength">Strength-Reinforcing</option>
+                    <option value="growth">Growth-Focused</option>
+                  </select>
+                </div>
+              )}
+            </div>
+
+            {/* Current items list */}
+            <div style={{ marginBottom: '1rem', border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden' }}>
+              {currentList.length === 0 ? (
+                <p style={{ padding: '1rem', opacity: 0.6, margin: 0, textAlign: 'center' }}>No items yet. Add one below.</p>
+              ) : (
+                currentList.map((item, idx) => (
+                  <div key={idx} style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    padding: '0.65rem 1rem',
+                    borderBottom: idx < currentList.length - 1 ? '1px solid var(--border-color)' : 'none',
+                    background: idx % 2 === 0 ? 'transparent' : 'rgba(0,0,0,0.02)'
+                  }}>
+                    <span style={{ fontSize: '0.9rem' }}>{item}</span>
+                    <button
+                      onClick={() => removeItem(item)}
+                      style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: 'var(--score-1)', borderRadius: '4px', padding: '0.2rem 0.6rem', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
+
+            {/* Add new item */}
+            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem' }}>
+              <input
+                type="text"
+                value={newItemText}
+                onChange={e => setNewItemText(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && addItem()}
+                placeholder="Type new option text and press Add..."
+                style={{ flex: 1, margin: 0 }}
+              />
+              <button className="rating-btn active-4" onClick={addItem} style={{ whiteSpace: 'nowrap' }}>+ Add</button>
+            </div>
+
+            <button className="rating-btn active-3" style={{ width: '100%' }} onClick={savePresets}>
+              {savingPresets ? 'Saving...' : 'Save All Changes to Database'}
+            </button>
+          </>
+        )}
+      </div>
+
+      <div className="card animate-slide-in" style={{ animationDelay: '0.3s' }}>
         <h2 className="section-title">Evaluations Archive</h2>
         {evaluations.length === 0 ? (
           <p>No evaluations submitted yet.</p>
@@ -252,7 +430,7 @@ export default function Director() {
                     <td style={{ padding: '0.75rem' }}>{ev.date}</td>
                     <td style={{ padding: '0.75rem', fontWeight: 'bold' }}>{ev.playerName}</td>
                     <td style={{ padding: '0.75rem' }}>{ev.team}</td>
-                    <td style={{ padding: '0.75rem' }}>{ev.coach || '—'}</td>
+                    <td style={{ padding: '0.75rem' }}>{ev.coach || '\u2014'}</td>
                     <td style={{ padding: '0.75rem', color: ev.mindsetAvg >= targets.mindsetAvg ? 'var(--score-4)' : 'var(--score-2)' }}>{ev.mindsetAvg.toFixed(1)}</td>
                     <td style={{ padding: '0.75rem', color: ev.physicalAvg >= targets.physicalAvg ? 'var(--score-4)' : 'var(--score-2)' }}>{ev.physicalAvg.toFixed(1)}</td>
                     <td style={{ padding: '0.75rem', color: ev.technicalAvg >= targets.technicalAvg ? 'var(--score-4)' : 'var(--score-2)' }}>{ev.technicalAvg.toFixed(1)}</td>

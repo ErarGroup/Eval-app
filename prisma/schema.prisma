@@ -42,3 +42,8 @@ model TeamTarget {
   technicalAvg    Float    @default(3.0)
   tacticalAvg     Float    @default(3.0)
 }
+
+model PresetConfig {
+  id   Int    @id @default(1)
+  data String
+}

@@ -193,6 +193,29 @@ app.post('/api/team-targets', async (req, res) => {
   }
 });
 
+app.get('/api/presets', async (req, res) => {
+  try {
+    const config = await prisma.presetConfig.findUnique({ where: { id: 1 } });
+    res.json(config ? JSON.parse(config.data) : null);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch presets' });
+  }
+});
+
+app.post('/api/presets', async (req, res) => {
+  try {
+    const data = JSON.stringify(req.body);
+    await prisma.presetConfig.upsert({
+      where: { id: 1 },
+      update: { data },
+      create: { id: 1, data }
+    });
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to save presets' });
+  }
+});
+
 // Serve the React Frontend dynamically
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
