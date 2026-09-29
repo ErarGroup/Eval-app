@@ -562,7 +562,7 @@ export default function App() {
       
       <div className="comments-section print-hide" style={{ marginTop: '1.5rem', display: 'flex', gap: '1rem', flexDirection: 'column' }}>
         <div className="form-group">
-          <label>Ã¢Â­Â Strengths: <span style={{color: 'red'}}>*</span></label>
+          <label> Strengths: <span style={{color: 'red'}}>*</span></label>
           <select 
              value={comments[objKey as keyof typeof comments].strength}
              onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], strength: e.target.value } }))}
@@ -581,7 +581,7 @@ export default function App() {
           </select>
         </div>
         <div className="form-group">
-          <label>Ã°Å¸â€œË† Areas for Growth: <span style={{color: 'red'}}>*</span></label>
+          <label> Areas for Growth: <span style={{color: 'red'}}>*</span></label>
           <select 
              value={comments[objKey as keyof typeof comments].growth}
              onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], growth: e.target.value } }))}
@@ -600,7 +600,7 @@ export default function App() {
           </select>
         </div>
         <div className="form-group">
-          <label>Ã°Å¸ÂÆ’ Work on your own: <span style={{color: 'red'}}>*</span></label>
+          <label> Work on your own: <span style={{color: 'red'}}>*</span></label>
           <select 
              value={comments[objKey as keyof typeof comments].video}
              onChange={e => setComments(prev => ({ ...prev, [objKey]: { ...prev[objKey as keyof typeof comments], video: e.target.value } }))}
@@ -953,7 +953,7 @@ export default function App() {
                 <b style={{textTransform: 'capitalize', fontSize: '1.1rem'}}>{pillar} Pillar:</b>
                 <p><strong>Ã¢Â­Â Strength:</strong> {data.strength}</p>
                 <p><strong>Ã°Å¸â€œË† Area for Growth:</strong> {data.growth !== '-- Select an Area for Growth --' ? data.growth : 'Not selected.'}</p>
-                <p><strong>Ã°Å¸ÂÆ’ Work on your own:</strong> {data.video !== '-- Work on your own --' ? data.video : 'No assignment.'}</p>
+                <p><strong> Work on your own:</strong> {data.video !== '-- Work on your own --' ? data.video : 'No assignment.'}</p>
               </div>
             )
           })}
