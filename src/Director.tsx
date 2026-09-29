@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PRESET_STRENGTHS, PRESET_GROWTH, PRESET_VIDEOS } from './presets';
 
@@ -31,6 +31,8 @@ export default function Director() {
   const [presetVideoType, setPresetVideoType] = useState<'strength'|'growth'>('strength');
   const [newItemText, setNewItemText] = useState('');
   const [savingPresets, setSavingPresets] = useState(false);
+  const [editingIdx, setEditingIdx] = useState<number | null>(null);
+  const [editingText, setEditingText] = useState('');
 
   useEffect(() => {
     if (!auth) return; // Don't fetch unless logged in
@@ -367,18 +369,75 @@ export default function Director() {
               ) : (
                 currentList.map((item, idx) => (
                   <div key={idx} style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                    padding: '0.65rem 1rem',
-                    borderBottom: idx < currentList.length - 1 ? '1px solid var(--border-color)' : 'none',
-                    background: idx % 2 === 0 ? 'transparent' : 'rgba(0,0,0,0.02)'
+                    display: "flex", alignItems: "center", justifyContent: "space-between",
+                    padding: "0.65rem 1rem",
+                    borderBottom: idx < currentList.length - 1 ? "1px solid var(--border-color)" : "none",
+                    background: idx % 2 === 0 ? "transparent" : "rgba(0,0,0,0.02)"
                   }}>
-                    <span style={{ fontSize: '0.9rem' }}>{item}</span>
-                    <button
-                      onClick={() => removeItem(item)}
-                      style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: 'var(--score-1)', borderRadius: '4px', padding: '0.2rem 0.6rem', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
-                    >
-                      Remove
-                    </button>
+                    {editingIdx === idx ? (
+                      <input
+                        type="text"
+                        value={editingText}
+                        onChange={e => setEditingText(e.target.value)}
+                        onKeyDown={e => {
+                          if (e.key === "Enter") {
+                            const trimmed = editingText.trim();
+                            if (trimmed && trimmed !== item) {
+                              const updated = [...currentList];
+                              updated[idx] = trimmed;
+                              updateCurrentList(updated);
+                            }
+                            setEditingIdx(null);
+                          }
+                          if (e.key === "Escape") setEditingIdx(null);
+                        }}
+                        autoFocus
+                        style={{ flex: 1, margin: 0, marginRight: "0.5rem", padding: "0.3rem 0.5rem", fontSize: "0.9rem" }}
+                      />
+                    ) : (
+                      <span style={{ fontSize: "0.9rem", flex: 1 }}>{item}</span>
+                    )}
+                    <div style={{ display: "flex", gap: "0.4rem", flexShrink: 0 }}>
+                      {editingIdx === idx ? (
+                        <>
+                          <button
+                            onClick={() => {
+                              const trimmed = editingText.trim();
+                              if (trimmed && trimmed !== item) {
+                                const updated = [...currentList];
+                                updated[idx] = trimmed;
+                                updateCurrentList(updated);
+                              }
+                              setEditingIdx(null);
+                            }}
+                            style={{ background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.4)", color: "var(--score-4)", borderRadius: "4px", padding: "0.2rem 0.6rem", cursor: "pointer", fontSize: "0.8rem", fontWeight: 600 }}
+                          >
+                            Save
+                          </button>
+                          <button
+                            onClick={() => setEditingIdx(null)}
+                            style={{ background: "rgba(0,0,0,0.06)", border: "1px solid var(--border-color)", color: "var(--text-color)", borderRadius: "4px", padding: "0.2rem 0.6rem", cursor: "pointer", fontSize: "0.8rem", fontWeight: 600 }}
+                          >
+                            Cancel
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            onClick={() => { setEditingIdx(idx); setEditingText(item); }}
+                            style={{ background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.3)", color: "#3b82f6", borderRadius: "4px", padding: "0.2rem 0.6rem", cursor: "pointer", fontSize: "0.8rem", fontWeight: 600 }}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => removeItem(item)}
+                            style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "var(--score-1)", borderRadius: "4px", padding: "0.2rem 0.6rem", cursor: "pointer", fontSize: "0.8rem", fontWeight: 600 }}
+                          >
+                            Remove
+                          </button>
+                        </>
+                      )}
+                    </div>
                   </div>
                 ))
               )}
