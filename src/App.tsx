@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend } from 'recharts';
 import { Link, useParams } from 'react-router-dom';
 import './index.css';
@@ -198,6 +198,16 @@ export default function App() {
 
     if (playerInfo.program.length === 0 || !playerInfo.team || !playerInfo.name) {
       alert('Missing Player Information! Ensure Program, Team, and Player Name are selected.');
+      return;
+    }
+
+    if (!finalClosingThoughts.trim()) {
+      alert('Missing Coach\'s final comments & recommendations. Please add your closing thoughts before submitting.');
+      return;
+    }
+
+    if (!playerInfo.coach.trim()) {
+      alert('Missing Coach/Evaluator Name. Please enter your name before submitting.');
       return;
     }
 
@@ -648,24 +658,24 @@ export default function App() {
            </p>
 
            <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-             <label>Coach's final comments & recommendations</label>
-             <textarea 
-               rows={4} 
+             <label>Coach's final comments & recommendations <span style={{color: 'red'}}>*</span></label>
+             <textarea
+               rows={4}
                value={finalClosingThoughts}
                onChange={(e) => setFinalClosingThoughts(e.target.value)}
-               placeholder="e.g. JuliÃƒÂ¡n has shown tremendous growth this quarter. His technical skills are adapting well to game scenarios..."
-               style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', resize: 'vertical' }}
+               placeholder="e.g. Julian has shown tremendous growth this quarter. His technical skills are adapting well to game scenarios..."
+               style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: `1px solid ${!finalClosingThoughts.trim() ? 'rgba(239, 68, 68, 0.5)' : 'var(--border-color)'}`, resize: 'vertical' }}
              />
            </div>
 
            <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-             <label>Coach/Evaluators Name</label>
-             <input 
-               type="text" 
+             <label>Coach/Evaluators Name <span style={{color: 'red'}}>*</span></label>
+             <input
+               type="text"
                value={playerInfo.coach}
                onChange={(e) => setPlayerInfo({...playerInfo, coach: e.target.value})}
                placeholder="e.g. Coach Smith"
-               style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}
+               style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: `1px solid ${!playerInfo.coach.trim() ? 'rgba(239, 68, 68, 0.5)' : 'var(--border-color)'}` }}
              />
            </div>
 
