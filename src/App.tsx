@@ -697,9 +697,9 @@ export default function App() {
             return (
               <div className="feedback-row" key={pillar}>
                 <b style={{textTransform: 'capitalize', fontSize: '1.1rem'}}>{pillar} Pillar:</b>
-                <p><strong>Ã¢Â­Â Strength:</strong> {data.strength}</p>
-                <p><strong>Ã°Å¸â€œË† Area for Growth:</strong> {data.growth !== '-- Select an Area for Growth --' ? data.growth : 'Not selected.'}</p>
-                <p><strong> Work on your own:</strong> {data.video !== '-- Work on your own --' ? data.video : 'No assignment.'}</p>
+                <p><strong>Strength:</strong> {data.strength}</p>
+                <p><strong>Area for Growth:</strong> {data.growth !== '-- Select an Area for Growth --' ? data.growth : 'Not selected.'}</p>
+                <p><strong>Work on your own:</strong> {data.video !== '-- Work on your own --' ? data.video : 'No assignment.'}</p>
               </div>
             )
           })}
@@ -708,13 +708,13 @@ export default function App() {
                 <b style={{fontSize: '1.1rem'}}>Final Coach Assessment:</b>
                 <p style={{ fontStyle: 'italic', marginTop: '0.5rem' }}>"{finalClosingThoughts}"</p>
                 {playerInfo.coach && (
-                  <p style={{ fontWeight: 600, marginTop: '0.5rem', color: 'var(--primary-color)' }}>Ã¢â‚¬â€ Evaluated by: {playerInfo.coach}</p>
+                  <p style={{ fontWeight: 600, marginTop: '0.5rem', color: 'var(--primary-color)' }}>&mdash; Evaluated by: {playerInfo.coach}</p>
                 )}
              </div>
           )}
           {!finalClosingThoughts && playerInfo.coach && (
              <div className="feedback-row" style={{ marginTop: '1.5rem' }}>
-                <p style={{ fontWeight: 600, color: 'var(--primary-color)' }}>Ã¢â‚¬â€ Evaluated by: {playerInfo.coach}</p>
+                <p style={{ fontWeight: 600, color: 'var(--primary-color)' }}>&mdash; Evaluated by: {playerInfo.coach}</p>
              </div>
           )}
         </div>
@@ -735,7 +735,7 @@ export default function App() {
 
       {/* Footer */}
       <div className="print-hide" style={{ textAlign: 'center', marginTop: '3rem', marginBottom: '3rem', padding: '1.5rem', borderTop: '1px solid var(--border-color)', color: 'var(--text-color)', opacity: 0.5, fontSize: '0.8rem' }}>
-        <p>Ã‚Â© {new Date().getFullYear()} Erar Group LLC. All rights reserved. &nbsp;<a href="mailto:erargroup@gmail.com" style={{ color: 'inherit', textDecoration: 'underline' }}>erargroup@gmail.com</a>, &nbsp;<Link to="/director" style={{ color: 'inherit', textDecoration: 'none', letterSpacing: '0.1em' }}>DOS</Link></p>
+        <p>&copy; {new Date().getFullYear()} Erar Group LLC. All rights reserved. &nbsp;<a href="mailto:erargroup@gmail.com" style={{ color: 'inherit', textDecoration: 'underline' }}>erargroup@gmail.com</a>, &nbsp;<Link to="/director" style={{ color: 'inherit', textDecoration: 'none', letterSpacing: '0.1em' }}>DOS</Link></p>
       </div>
     </>
   );
