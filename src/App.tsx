@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend } from 'recharts';
 import { Link, useParams } from 'react-router-dom';
 import './index.css';
@@ -456,10 +456,10 @@ export default function App() {
       
       <div className="container" style={{ pageBreakBefore: 'always', breakBefore: 'page' }}>
 
-        <div className="card animate-slide-in" style={{ animationDelay: '0s' }}>
+        <div className="card player-info-card animate-slide-in" style={{ animationDelay: '0s' }}>
           <h2 className="section-title">Player Information</h2>
           {/* STEP 1: Select a Program */}
-          <div className="grid" style={{ marginBottom: '1.5rem', display: 'block' }}>
+          <div className="grid program-step-row" style={{ marginBottom: '1.5rem', display: 'block' }}>
             <div className="form-group" style={{ marginBottom: '1rem' }}>
                <label>Select a Program</label>
                {availablePrograms.length > 0 ? (
@@ -559,7 +559,7 @@ export default function App() {
                )}
 
                {playerInfo.emails && playerInfo.emails.length > 0 && (
-                  <div style={{
+                  <div className="parent-email-banner" style={{
                     marginTop: '0.5rem',
                     padding: '0.5rem 0.75rem',
                     background: 'rgba(34, 197, 94, 0.08)',
@@ -626,17 +626,17 @@ export default function App() {
               </tbody>
             </table>
 
-            <div style={{ display: 'flex', width: '100%', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '2rem', marginTop: '2rem' }}>
+            <div className="snapshot-chart-row" style={{ display: 'flex', width: '100%', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '2rem', marginTop: '2rem' }}>
               <div className="chart-wrapper" style={{ flex: 1, minWidth: '300px', maxWidth: '600px' }}>
-                 <ResponsiveContainer width="100%" height={350}>
-                   <RadarChart cx="50%" cy="50%" outerRadius="70%" data={chartData}>
+                 <ResponsiveContainer width="100%" height={300}>
+                   <RadarChart cx="50%" cy="48%" outerRadius="72%" data={chartData}>
                      <PolarGrid />
                      <PolarAngleAxis dataKey="subject" tick={{ fill: 'var(--text-color)', fontWeight: 600 }} />
                      <PolarRadiusAxis angle={30} domain={[0, 4]} tick={{ fill: 'var(--text-color)' }} />
                      <Radar name="Player Score" dataKey="Player" stroke="#000000" fill="#000000" fillOpacity={0.6} />
                      <Radar name="Team Avg" dataKey="Team" stroke="#22c55e" fill="transparent" strokeWidth={2} strokeDasharray="5 5" />
                      <Radar name="Club Avg" dataKey="Club" stroke="#3b82f6" fill="transparent" strokeWidth={2} strokeDasharray="3 3" />
-                     <Legend wrapperStyle={{ paddingTop: '20px' }}/>
+                     <Legend wrapperStyle={{ paddingTop: '8px' }}/>
                    </RadarChart>
                  </ResponsiveContainer>
               </div>
